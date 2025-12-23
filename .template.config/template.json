@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "PMart",
+  "classifications": [
+    "ASP.NET",
+    "API",
+    "Minimal API"
+  ],
+  "description": "A solution template for creating a simple and clean ASP.NET Core API.",
+  "identity": "Minimal.Api",
+  "name": "Minimal API Solution",
+  "shortName": "min-api",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "Minimal.Api.Template",
+  "preferNameDirectory": true,
+  "symbols": {
+    "with-docker": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Option to add Docker and Docker compose support"
+    },
+    "IsToAddDocker": {
+      "type": "computed",
+      "value": "(with-docker)"
+    }
+  },
+  "sources": [
+    {
+      "exclude": [
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".template.config/**/*",
+        "**/*.filelist",
+        "**/*.user",
+        "**/*.lock.json",
+        "**/[Ll]og/**",
+        "**/[Ll]ogs/**",
+        ".git/**",
+        ".github/**",
+        ".idea/**",
+        ".vs/**",
+        "sqldata/**",
+        "CoverageReport/**",
+        "README.md",
+        "*.csproj",
+        "icon.*",
+        "docs/**"
+      ],
+      "rename": {
+        "README-template.md": "README.md"
+      },
+      "copyOnly": ["README-template.md"],
+      "modifiers": [
+        {
+          "condition": "!IsToAddDocker",
+          "exclude": [
+            ".dockerignore",
+            "docker-compose.*",
+            "**/Dockerfile",
+            "launchSettings.json"
+          ]
+        }
+      ]
+    }
+  ],
+  "guids": [
+    "4f769649-d7f8-4a0c-9072-fbf6374e7ed4"
+  ]
+}
