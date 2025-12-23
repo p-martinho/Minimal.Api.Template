@@ -1,0 +1,6 @@
+services:
+  todo.api:
+    image: ${DOCKER_REGISTRY-}todo.api
+    build:
+      context: .
+      dockerfile: src/Todo/Todo.Presentation.Api/Dockerfile
