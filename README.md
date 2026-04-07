@@ -1,13 +1,13 @@
-[![NuGet](https://img.shields.io/nuget/v/PMart.Modular.Api.Template.svg)](https://www.nuget.org/packages/PMart.Modular.Api.Template)
-[![NuGet](https://img.shields.io/nuget/dt/PMart.Modular.Api.Template.svg)](https://www.nuget.org/packages/PMart.Modular.Api.Template)
-[![Build and Test](https://github.com/p-martinho/Modular.Api.Template/actions/workflows/build-and-test.yaml/badge.svg)](https://github.com/p-martinho/Modular.Api.Template/actions/workflows/build-and-test.yaml)
-[![CodeQL Analysis](https://github.com/p-martinho/Modular.Api.Template/actions/workflows/codeql-analysis.yaml/badge.svg)](https://github.com/p-martinho/Modular.Api.Template/actions/workflows/codeql-analysis.yaml)
+[![NuGet](https://img.shields.io/nuget/v/PMart.Minimal.Api.Template.svg)](https://www.nuget.org/packages/PMart.Minimal.Api.Template)
+[![NuGet](https://img.shields.io/nuget/dt/PMart.Minimal.Api.Template.svg)](https://www.nuget.org/packages/PMart.Minimal.Api.Template)
+[![Build and Test](https://github.com/p-martinho/Minimal.Api.Template/actions/workflows/build-and-test.yaml/badge.svg)](https://github.com/p-martinho/Minimal.Api.Template/actions/workflows/build-and-test.yaml)
+[![CodeQL Analysis](https://github.com/p-martinho/Minimal.Api.Template/actions/workflows/codeql-analysis.yaml/badge.svg)](https://github.com/p-martinho/Minimal.Api.Template/actions/workflows/codeql-analysis.yaml)
 
-# Modular API Solution
+# Minimal API Solution
 
-This is a .NET template to create a modular monolith with several ASP.NET Core APIs.
+This is a .NET template to create a simple and clean ASP.NET Core API.
 
-The idea is to create, fast and easy, an enterprise level solution, with a layered architecture, with the ability to have different modules in the same solution with a clean structure.
+The idea is to create, fast and easy, a solution, with a layered architecture, and with a clean structure.
 
 # Requirements
 
@@ -22,13 +22,13 @@ The idea is to create, fast and easy, an enterprise level solution, with a layer
 First, you need to install the template:
 
 ```
-dotnet new install PMart.Modular.Api.Template
+dotnet new install PMart.Minimal.Api.Template
 ```
 
 Once installed, you can see the available options running the command:
 
 ```
-dotnet new mod-api --help
+dotnet new min-api --help
 ```
 
 ## Create a New Solution
@@ -36,63 +36,42 @@ dotnet new mod-api --help
 Once installed, create a new solution using the template:
 
 ```
-dotnet new mod-api -n YourSolutionName
+dotnet new min-api -n YourSolutionName
 ```
 
 To add support for Docker and Docker compose, add the option `--with-docker`:
 
 ```
-dotnet new mod-api -n YourSolutionName --with-docker
-```
-
-## Add a New Module
-
-After having the solution created, you can add new modules, using the `--add module` option.
-
-**In the root folder of the solution**, run the command:
-
-```
-dotnet new mod-api --add module --module-name YourNewModuleName
-```
-
-If you want to add support for Docker in the new module, add the option `--with-docker`:
-
-```
-dotnet new mod-api --add module --module-name YourNewModuleName --with-docker
-```
-
-After creating the new module, add it to **Aspire** (check [here](#aspire) how).
-If **Docker** is used, add the new module to `docker-compose.yml` and `docker-compose.override.yml` (check how it is done for the sample modules).
-
-## Add Tests for the New Module
-
-After adding the new module, you can add test projects for the new module, using the `--add tests` option (the name of the module must be provided):
-
-```
-dotnet new mod-api --add tests --module-name YourNewModuleName
+dotnet new min-api -n YourSolutionName --with-docker
 ```
 
 ## Run
 
 Locally, you only have to run the `Aspire.AppHost` project. It requires **Docker Desktop** running, for the database.
 
-Navigate to [https://localhost:7107/scalar](), to see the sample **Identity API** documentation page
-and navigate to [https://localhost:7217/scalar]() to see the sample **Todo API** documentation page.
+Navigate to [https://localhost:7217/scalar]() to see the sample **Todo API** documentation page.
 
-You can test the sample APIs, using the provided examples in the `.http` files:
-[Identity.Presentation.Api.http](./src/Identity/Identity.Presentation.Api/Identity.Presentation.Api.http) and [Todo.Presentation.Api.http](./src/Todo/Todo.Presentation.Api/Todo.Presentation.Api.http).
+You can test the sample API, using the provided examples in the `.http` file: [Todo.Presentation.Api.http](./src/Todo.Presentation.Api/Todo.Presentation.Api.http).
+
+## Update
+
+After having the solution working, you can implement your own projects:
+
+* Rename the **Todo** projects
+* If Docker is enabled, update the `docker-compose.yml` with the new path to Dockerfile
+* Implement the new projects, for each layer (you can get base reference from the sample)
+* Update packages version
 
 # Design and Architecture
 
 * **Architecture**:
   * Layered Architecture
-  * Modular Monolith Architecture
 * **Patterns**:
   * Command Query Responsibility Segregation ([CQRS](https://en.wikipedia.org/wiki/Command_Query_Responsibility_Segregation))
   * Domain Driven Design ([DDD](https://en.wikipedia.org/wiki/Domain-driven_design))
   * [Repository pattern](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-implementation-entity-framework-core#using-a-custom-repository-versus-using-ef-dbcontext-directly)
 
-The solution is structured in **modules**. And each module is structured in a **Layered Architecture**, with the layers: **Presentation**, **Application**, **Domain**, **Persistence** and **Common** (described [in the next section](#layers-and-modules)).
+The solution is structured in a **Layered Architecture**, with the layers: **Presentation**, **Application**, **Domain**, **Persistence** and **Common** (described [in the next section](#layers)).
 
 Everything in software architecture is relative, there's no absolutely right solution, it all "depends". Therefore, don't expect I will argue that this is the greatest.
 I found other great templates, for instance, using the [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html). Please check them in the section [References](#references).
@@ -102,11 +81,11 @@ The goal of the template is to provide a solution with a clean structure, simple
 
 The **Layered Architecture** is straightforward, well-known, and suitable for smaller applications (better than the all-in-one architecture anyway).
 
-The solution could be even simpler, for small playground applications or personal applications (for instance, just one project per module, like the MVC pattern, or just one project with all the modules).
-I tried to get the balance. I think this solution is enterprise level (not for microservices context, this is a modular monolith) and also simple enough to use in small projects, keeping the decoupling, clean code, and [SOLID](https://en.wikipedia.org/wiki/SOLID) principals.
+The solution could be even simpler, for small playground applications or personal applications (for instance, just one project, like the MVC pattern).
+I tried to get the balance. I think this solution is enterprise level and also simple enough to use in small projects, keeping the decoupling, clean code, and [SOLID](https://en.wikipedia.org/wiki/SOLID) principals.
 
 I tried to keep the dependencies at the minimum, as discussed in the section [Technologies and Dependencies](#technologies-and-dependencies).
-Therefore, it was easy to decide to not use __MediatR__ (not even taking into consideration it is becoming commercial). Instead, the solution applies the [CQRS pattern](https://martinfowler.com/bliki/CQRS.html) using command handlers and query handlers, that are called directly and explicitly.
+Therefore, it was easy to decide to not use __MediatR__ (not even taking into consideration it is commercial). Instead, the solution applies the [CQRS pattern](https://martinfowler.com/bliki/CQRS.html) using command handlers and query handlers, that are called directly and explicitly.
 This way, it is easier to debug and understand what is happening instead of just sending a message and then search for the handlers of the message. And it has also performance benefits.
 I totally agree that using __MediatR__ has a lot of benefits, but the intention here was only to keep things simpler and with the fewer dependencies possible.
 
@@ -118,12 +97,10 @@ Repository is controversial, and is so much easier (and not wrong at all) to use
 
 In conclusion, the solution tries to be not that complex, but with a level of complexity that .NET developers are used to (we can find very simple templates, very fast to get a small project working, but that was not the intention).
 
-## Layers and Modules
+## Layers
 
-Each **module** is divided in 5 layers: **Presentation**, **Application**, **Domain**, **Persistence** and **Common**. Each layer of a module is implemented in one project, inside the module folder (check the [solution structure](#logical-solution-structure)).
-And each layer has its own test project, in each module. The layers are briefly explained next.
-
-The solution includes a set of projects called `SharedCore`. These projects, one for each layer, include abstractions, base classes, services registration, etc., that are common and used by every module.
+The solution is divided in 5 layers: **Presentation**, **Application**, **Domain**, **Persistence** and **Common**. Each layer is implemented in one project, inside the source folder (check the [solution structure](#logical-solution-structure)).
+And each layer has its own test project. The layers are briefly explained next.
 
 ### Presentation
 
@@ -181,8 +158,6 @@ or if the **Application** layer has any public type that is not an interface for
 
 It uses the library [NetArchTest.eNhancedEdition](https://github.com/NeVeSpl/NetArchTest.eNhancedEdition) to help on that. You can explore the unit tests to be more aware of the rules tested.
 
-When you add a new module, you should add it in the `Assemblies` class, to it be included in the architecture tests.
-
 # Technologies and Dependencies
 
 In this template, it was decided to use the fewer external libraries as possible to give a more "vanilla" solution and let the developer choose their favorite tools.
@@ -191,8 +166,8 @@ But there are some dependencies that were decided to use because they are popula
 * [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
 * [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
 * [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview)
-  * The solution includes **Aspire**, to orchestrate the several services (APIs, database, etc.). It is so easy running and connecting everything for local development environments.
-It includes the [Aspire Dashboard](https://aspire.dev/dashboard/overview/), which helps a lot to visualize traces, structured logs, and metrics.
+  * The solution includes **Aspire**, to orchestrate the several services (API, database, etc.). It is so easy running and connecting everything for local development environments.
+    It includes the [Aspire Dashboard](https://aspire.dev/dashboard/overview/), which helps a lot to visualize traces, structured logs, and metrics.
 * [OpenTelemetry](https://opentelemetry.io/docs/languages/dotnet/)
   * This open source telemetry framework is enabled by the **Aspire** defaults.
 * [Docker and Docker compose support](https://docs.docker.com/)
@@ -201,17 +176,17 @@ It includes the [Aspire Dashboard](https://aspire.dev/dashboard/overview/), whic
   * The solution includes a sample API to create, store, and authenticate users.
 * [OpenIddict](https://documentation.openiddict.com/)
   * The solution contains the authentication and authorization configured out-of-the-box, as explained in the [auth section](#authentication-and-authorization).
-The decision was to use known standards (OAuth 2.0 and OpenId Connect), using an open source library.
+    The decision was to use known standards (OAuth 2.0 and OpenId Connect), using an open source library.
 * [Serilog](https://serilog.net/)
   * The default logging of ASP.NET Core is not perfect yet. **Serilog** is very popular and useful (structured logs, integration with different targets/sinks, etc.).
 * [OpenApi](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/openapi/aspnetcore-openapi)
   * The API documentation is built using the `Microsoft.AspNetCore.OpenApi` library, included as well in the ASP.NET Core templates.
 * [Scalar](https://guides.scalar.com/scalar/scalar-api-references/net-integration)
   * The new ASP.NET Core templates do not include **Swagger** anymore. In this case, all the documentation is built using **OpenApi** and then the documents can be used by any interface.
-**Scalar** is one of them, selected here because Swagger UI seems outdated and the "Try out" feature is not very friendly. But is straightforward to switch to Swagger, using the same **OpenApi** documents.
+  **Scalar** is one of them, selected here because Swagger UI seems outdated and the "Try out" feature is not very friendly. But is straightforward to switch to Swagger, using the same **OpenApi** documents.
 * [FluentValidation](https://fluentvalidation.net/)
   * This library is very used and known, but is not absolutely necessary here. The idea is to have a validation in the **Application** layer,
-and the flow of a command or query handling should include that validation. After starting by adding some manual validation for the simple sample, I gave up and added this library for that, it is so much easier to maintain and test.
+  and the flow of a command or query handling should include that validation. After starting by adding some manual validation for the simple sample, I gave up and added this library for that, it is so much easier to maintain and test.
 * [XUnit V3 (with MTP v2)](https://xunit.net/)
 * [NSubstitute](https://nsubstitute.github.io/)
   * For mocking in unit tests, the [Moq](https://github.com/devlooped/moq) library is more popular, but [NSubstitute](https://nsubstitute.github.io/) is less verbose, easy to use (and learn) and is well-known as well.
@@ -222,8 +197,7 @@ and the flow of a command or query handling should include that validation. Afte
 
 # Features
 
-After creating the solution for the first time, explore the sample modules included. One is an Identity API (as explained [here](#authentication-and-authorization)),
-and the other is just a simple TODO lists API, enough to make understand how the modules work. Just checking the code, it should be easy to follow the pattern.
+After creating the solution for the first time, explore the sample included, a simple TODO lists API, enough to make understand how the solution works. Just checking the code, it should be easy to follow the pattern.
 
 ## Layers and CQRS: the Flow
 
@@ -262,12 +236,6 @@ The solution supports API versioning by defining the existent versions (includin
 For each API version, it will be created one **OpenApi** document.
 
 Check the API versions defined in `Program.cs` of the **Todo API** and the way the version is assigned in the `TodoListsEndpointGroup`.
-
-## Shared Libraries
-
-The solution includes a set of projects called `SharedCore`. These projects, one for each layer, include abstractions, base classes, services registration, etc., that are common and used by every module.
-
-This way, all the modules can reuse the same code, same patterns, same classes, etc.
 
 ## Error Handling
 
@@ -322,7 +290,7 @@ The template uses the [Entity Framework Core](https://docs.microsoft.com/en-us/e
 When you run the application, the database will be automatically created (if not yet) and the latest migrations will be applied.
 In a non-development environment, the migrations are not automatic, and you should apply them using [bundles](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/applying?tabs=dotnet-core-cli#bundles), for instance.
 
-The `SharedCore.Persistence` project adds the **SQL Server** provider by default. To have a different database type, this can be overriden.
+The `Persistence` project adds the **SQL Server** provider. To have a different database type, change the EF Core configuration in `EfCoreDependencyInjectionExtensions`.
  
 The template supports soft delete. If needed, the entity should implement `ISoftDeletableEntity`. Auditable properties can also be automatically added and updated, being the entity derived from `BaseAuditableEntity`.
 These two features work using [EF Core interceptors](https://learn.microsoft.com/en-us/ef/core/logging-events-diagnostics/interceptors).
@@ -337,11 +305,10 @@ You need to create a new migration.
 To create a migration, you need to have installed the [EF Core CLI Tool](https://learn.microsoft.com/en-us/ef/core/cli/dotnet). Then, in the root of the solution, run the following command (example for the **Todo** application):
 
 ```
-dotnet ef migrations add <MigrationName> --startup-project .\src\Todo\Todo.Presentation.Api\ --project .\src\Todo\Todo.Persistence\ -- --environment Migration
+dotnet ef migrations add <MigrationName> --startup-project .\src\Todo.Presentation.Api\ --project .\src\Todo.Persistence\ -- --environment Migration
 ```
 
 > **Note:** The `--environment Migration` parameter is used to the pending migrations not being applied, which is the default in the `Development` environment.
-
 
 If you ever need to add migrations to the `Todo.Persistence.IntegrationTests`, this would be the command:
 
@@ -360,24 +327,19 @@ The `docker-compose.override.yml` file (if added) includes the **Aspire Dashboar
 ## Aspire
 
 The solution has support for [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview). Locally, you only have to run the `Aspire.AppHost` project.
-It will automatically instantiate a Docker container for the SQL Server (requires **Docker Desktop** running), add the databases, waits for the databases are up, and then run the modules APIs.
+It will automatically instantiate a Docker container for the SQL Server (requires **Docker Desktop** running), add the database, waits for the database is up, and then run the API.
 The **Aspire Dashboard** is launched.
 
-In the **Aspire Dashboard** you can visualize the structured logs (with nice search and filter functionalities), traces (e.g., the calls between resources) and metrics, for each module and resource.
+In the **Aspire Dashboard** you can visualize the structured logs (with nice search and filter functionalities), traces (e.g., the calls between resources) and metrics, for each resource.
 
 > **Note:** Aspire Dashboard does not persist data, and it is not the solution for telemetry and monitoring for production apps (you can use **Prometheus+Grafana**, or **Azure Application Insights**, for instance).
 
-To add a new module to Aspire, add the reference for the Presentation project of that module in `Aspire.AppHost`, and register it in `AppHost.cs` with `builder.AddProject<>()`, as it is for the sample projects.
-You may need to create a new database, in that case just follow the same approach of the samples.
-
 ## Docker Support
 
-If Docker files are added (with the option `--with-docker` when creating the solution and new modules),
-the solution will include a `docker-compose.yml` and `docker-compose.override.yml`, and the modules will include `Dockerfile` files.
+If Docker files are added (with the option `--with-docker` when creating the solution),
+the solution will include a `docker-compose.yml` and `docker-compose.override.yml`, and the API will include `Dockerfile` file.
 
-The `docker-compose.override.yml` will run the following services: the modules APIs, The SQL Server, and the Aspire Dashboard.
-
-To add a new module to Docker compose, add the new module to `docker-compose.yml` and `docker-compose.override.yml` (check how it is done for the sample modules, use similar configurations).
+The `docker-compose.override.yml` will run the following services: the API, The SQL Server, and the Aspire Dashboard.
 
 To access the Aspire Dashboard from Docker, check the logs of the container, there will be the link to the Dashboard with the login token.
 
@@ -391,7 +353,7 @@ You can, also, build your own [custom health check](https://learn.microsoft.com/
 
 ## Testing
 
-The template has a test project for each module and layer. The `SharedCore` projects are also tested. Some of them are integration tests (for instance, for **Persistence** and **Presentation**), others are unit tests.
+The template has a test project for each layer. Some of them are integration tests (for instance, for **Persistence** and **Presentation**), others are unit tests.
 
 The tests use the [XUnit V3](https://xunit.net/) (with the Microsoft Testing Platform V2 enabled) as the testing framework and [NSubstitute](https://nsubstitute.github.io/) as the mocking library.
 
@@ -426,7 +388,7 @@ To assess the code coverage, and if your IDE does not include a tool for it, fol
 
 The way the application is built, we need mappings between DTOs and entities and between DTOs and API DTOs.
 
-The mapping is done via **extensions**. There are several mapping libraries (like [Mapperly](https://github.com/riok/mapperly) or [AutoMapper](https://automapper.org/)),
+The mapping is done via **extensions**. There are several mapping libraries (like [Mapperly](https://github.com/riok/mapperly), for instance),
 but their usage sometimes brings more problems than advantages, and also, once more, the idea is to keep the external dependencies to a minimum.
 
 ## Code Style
@@ -439,8 +401,6 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 * [Microsoft: Implement the infrastructure persistence layer with Entity Framework Core](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-implementation-entity-framework-core)
 * [Ardalis: Clean Architecture](https://github.com/ardalis/CleanArchitecture)
 * [Jason Taylor: Clean Architecture](https://github.com/jasontaylordev/CleanArchitecture)
-* [Milan Jovanović: What Is a Modular Monolith?](https://www.milanjovanovic.tech/blog/what-is-a-modular-monolith)
-* [Meysam Hadeli: Booking Modular Monolith](https://github.com/meysamhadeli/booking-modular-monolith)
 * [Mark Richards: Developer to Architect](https://www.developertoarchitect.com/)
 * [Architecting Modern Web Applications with ASP.NET Core and Microsoft Azure](https://aka.ms/webappebook) (eBook)
 * [Andrew Lock: Working with the result pattern](https://andrewlock.net/series/working-with-the-result-pattern/)
@@ -462,12 +422,16 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 
 * I would recommend using Enumeration classes instead of `enum`s for enumerations with logic (switch statements, etc.).
 The enumeration classes bring several benefits. You can explore a library like [PMart.Enumeration](https://github.com/p-martinho/Enumeration).
+* For an enterprise level solution with more than one API, I would suggest to check the Modular Monolith approach like [PMart.Modular.Api.Template](https://github.com/p-martinho/Modular.Api.Template)
 
 
 
 # TODO
+
 * Add migration
 * Rename "Todo" to "Minimal.Api.Template" (to be renamed by the template engine)
 * Add option for .NET identity (check files to exclude, like ICurrentUser?)
-* Removed reference to ProblemDetails assembly because it is removed in the solution created by template
-* Update packages
+  * Review sections "Technologies", "Authentication" and "References"
+* Review docs folder
+* Add things to do after creating the solution: rename projects, change DB name in appsettings and docker, rename service name in docker, refactor existing projects, update packages
+* Try to rename project
