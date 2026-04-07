@@ -1,0 +1,46 @@
+<Solution>
+    <Folder Name="/Aspire/">
+        <Project Path="src/Aspire/Aspire.AppHost/Aspire.AppHost.csproj" />
+        <Project Path="src/Aspire/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+    </Folder>
+    <Folder Name="/Documentation/">
+        <File Path="LICENSE" />
+        <File Path="README.md" />
+    </Folder>
+    <Folder Name="/Solution Items/">
+        <File Path=".editorconfig" />
+        <File Path=".gitignore" />
+        <File Path="Directory.Build.props" />
+        <File Path="global.json" />
+        <!--#if (IsToAddDocker) -->
+        <Project Path="docker-compose.dcproj">
+            <Build />
+        </Project>
+        <!--#endif -->
+    </Folder>
+    <Folder Name="/Src/">
+        <File Path="src/Directory.Build.props" />
+        <Project Path="src/Todo.Application/Todo.Application.csproj" />
+        <Project Path="src/Todo.Common/Todo.Common.csproj" />
+        <Project Path="src/Todo.Domain/Todo.Domain.csproj" />
+        <Project Path="src/Todo.Persistence/Todo.Persistence.csproj" />
+        <Project Path="src/Todo.Presentation.Api/Todo.Presentation.Api.csproj" />
+    </Folder>
+    <!--#if (false) -->
+    <Folder Name="/Template Items/">
+        <File Path=".template.config/template.json" />
+        <File Path="Minimal.Api.Template.csproj" />
+        <File Path="README-template.md" />
+    </Folder>
+    <!--#endif -->
+    <Folder Name="/Tests/">
+        <File Path="tests/CodeCoverage-settings.xml" />
+        <File Path="tests/Directory.Build.props" />
+        <Project Path="tests/Architecture.Tests/Architecture.Tests.csproj" />
+        <Project Path="tests/Todo.Application.Tests/Todo.Application.Tests.csproj" />
+        <Project Path="tests/Todo.Common.Tests/Todo.Common.Tests.csproj" />
+        <Project Path="tests/Todo.Domain.Tests/Todo.Domain.Tests.csproj" />
+        <Project Path="tests/Todo.Persistence.IntegrationTests/Todo.Persistence.IntegrationTests.csproj" />
+        <Project Path="tests/Todo.Presentation.Api.IntegrationTests/Todo.Presentation.Api.IntegrationTests.csproj" />
+    </Folder>
+</Solution>
