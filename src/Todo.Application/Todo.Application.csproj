@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
-        <PackageReference Include="FluentValidation" Version="12.1.0"/>
+        <PackageReference Include="FluentValidation" Version="12.1.1"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="..\Todo.Persistence\Todo.Persistence.csproj"/>
     </ItemGroup>

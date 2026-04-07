@@ -14,8 +14,10 @@ namespace Todo.Persistence.IntegrationTests.Fixtures;
 
 public class EfCoreFixture : IAsyncLifetime
 {
-    private readonly MsSqlContainer _msSqlContainer = new MsSqlBuilder().Build();
-    
+    private const string MsSqlImageName = "mcr.microsoft.com/mssql/server:2022-CU24-ubuntu-22.04";
+
+    private readonly MsSqlContainer _msSqlContainer = new MsSqlBuilder(MsSqlImageName).Build();
+
     public IServiceProvider ServiceProvider = null!;
 
     public virtual async ValueTask InitializeAsync()
@@ -33,7 +35,7 @@ public class EfCoreFixture : IAsyncLifetime
 
         // IHostEnvironment is used to decide whether it should apply migrations.
         services.AddScoped<IHostEnvironment, TestHostEnvironment>();
-        
+
         // One of the EF Core interceptors uses ICurrentUser to set audit properties.
         services.AddScoped<ICurrentUser, TestCurrentUser>();
 
@@ -43,14 +45,14 @@ public class EfCoreFixture : IAsyncLifetime
 
         ServiceProvider = services.BuildServiceProvider();
     }
-    
+
     public async ValueTask DisposeAsync()
     {
         await DisposeAsyncCore().ConfigureAwait(false);
 
         GC.SuppressFinalize(this);
     }
-    
+
     protected virtual ValueTask DisposeAsyncCore()
     {
         return _msSqlContainer.DisposeAsync();

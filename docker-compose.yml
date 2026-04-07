@@ -1,6 +1,6 @@
 services:
-  todo.api:
-    image: ${DOCKER_REGISTRY-}todo.api
+  minimal.api:
+    image: ${DOCKER_REGISTRY-}minimal.api
     build:
       context: .
-      dockerfile: src/Todo/Todo.Presentation.Api/Dockerfile
+      dockerfile: src/Todo.Presentation.Api/Dockerfile
