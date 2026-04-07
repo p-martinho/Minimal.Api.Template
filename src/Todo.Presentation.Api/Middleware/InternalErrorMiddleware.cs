@@ -130,7 +130,7 @@ internal class InternalErrorMiddleware
         var position = 0;
         foreach (var c in input)
         {
-            if (c == '\r' || c == '\n' || char.IsControl(c))
+            if (char.IsControl(c))
             {
                 continue;
             }
