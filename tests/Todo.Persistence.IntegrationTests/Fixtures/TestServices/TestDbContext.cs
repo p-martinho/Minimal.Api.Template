@@ -11,7 +11,7 @@ internal class TestDbContext : ApplicationDbContext
 
     protected override string DefaultSchema => GetDefaultSchema();
 
-    public TestDbContext(DbContextOptions options) : base(options)
+    public TestDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
 

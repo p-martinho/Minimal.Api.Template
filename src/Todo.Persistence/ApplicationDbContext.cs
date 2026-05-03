@@ -15,15 +15,15 @@ internal class ApplicationDbContext : DbContext
     /// The default schema to be used, when the schema is not set on the entity configuration.
     /// </summary>
     protected virtual string DefaultSchema => "todo";
-    
+
     /// <summary>
     /// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
     /// </summary>
     /// <param name="options">The options.</param>
-    public ApplicationDbContext(DbContextOptions options) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
-    
+
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -23,9 +23,19 @@
       "defaultValue": "false",
       "description": "Option to add Docker and Docker compose support"
     },
+    "with-identity": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Option to add Identity API endpoints and store"
+    },
     "IsToAddDocker": {
       "type": "computed",
       "value": "(with-docker)"
+    },
+    "IsToExcludeIdentity": {
+      "type": "computed",
+      "value": "(!(with-identity))"
     }
   },
   "sources": [
@@ -62,6 +72,24 @@
             "docker-compose.*",
             "**/Dockerfile",
             "launchSettings.json"
+          ]
+        },
+        {
+          "condition": "!IsToAddDocker",
+          "exclude": [
+            ".dockerignore",
+            "docker-compose.*",
+            "**/Dockerfile",
+            "launchSettings.json"
+          ]
+        },
+        {
+          "condition": "IsToExcludeIdentity",
+          "exclude": [
+            "**/Identity/**",
+            "**/IdentityDbContext.cs",
+            "**/TokensOperationTransformer.cs",
+            "**/Identity.Presentation.Api.http"
           ]
         }
       ]

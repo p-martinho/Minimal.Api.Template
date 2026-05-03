@@ -10,7 +10,7 @@ namespace Todo.Presentation.Api.OpenApi;
 /// </summary>
 /// <seealso cref="IOpenApiOperationTransformer"/>
 [ExcludeFromCodeCoverage]
-public class DeprecatedStatusOperationTransformer : IOpenApiOperationTransformer
+internal class DeprecatedStatusOperationTransformer : IOpenApiOperationTransformer
 {
     /// <inheritdoc />
     public Task TransformAsync(OpenApiOperation operation, OpenApiOperationTransformerContext context,

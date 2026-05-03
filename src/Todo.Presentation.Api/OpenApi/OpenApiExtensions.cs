@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Asp.Versioning;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using OpenIddict.Validation.AspNetCore;
 using Scalar.AspNetCore;
 
 namespace Todo.Presentation.Api.OpenApi;
@@ -33,6 +33,9 @@ internal static class OpenApiExtensions
                     options.AddOperationTransformer<AuthorizationOperationTransformer>();
                     options.AddOperationTransformer<ApiVersionOperationTransformer>();
                     options.AddOperationTransformer<DeprecatedStatusOperationTransformer>();
+#if !IsToExcludeIdentity
+                    options.AddOperationTransformer<TokensOperationTransformer>();
+#endif
                 });
             }
 
@@ -59,8 +62,8 @@ internal static class OpenApiExtensions
             {
                 options.WithTitle(ApiInfoDetails.Title);
 
-                options.AddPreferredSecuritySchemes(JwtBearerDefaults.AuthenticationScheme)
-                    .AddHttpAuthentication(JwtBearerDefaults.AuthenticationScheme,
+                options.AddPreferredSecuritySchemes(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)
+                    .AddHttpAuthentication(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme,
                         securityScheme =>
                         {
                             securityScheme.Token = "your-token";

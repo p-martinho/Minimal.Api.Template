@@ -12,7 +12,7 @@ internal class TestDbContextFactory : IDesignTimeDbContextFactory<TestDbContext>
 {
     public TestDbContext CreateDbContext(string[] args)
     {
-        var optionsBuilder = new DbContextOptionsBuilder<TestDbContext>();
+        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
         optionsBuilder.UseSqlServer();
 
         return new TestDbContext(optionsBuilder.Options);

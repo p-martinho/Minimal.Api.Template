@@ -6,7 +6,7 @@ namespace Todo.Presentation.Api.Settings;
 /// The internal error middleware settings.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class InternalErrorMiddlewareSettings
+internal class InternalErrorMiddlewareSettings
 {
     /// <summary>
     /// Value indicating whether the middleware is enabled.

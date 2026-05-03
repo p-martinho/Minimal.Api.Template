@@ -12,7 +12,7 @@ using Todo.Persistence;
 namespace Todo.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260104143503_InitialMigration")]
+    [Migration("20260426134840_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -21,7 +21,7 @@ namespace Todo.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("todo")
-                .HasAnnotation("ProductVersion", "10.0.0")
+                .HasAnnotation("ProductVersion", "10.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

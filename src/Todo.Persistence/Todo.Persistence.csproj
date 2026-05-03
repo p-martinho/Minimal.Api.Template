@@ -5,6 +5,10 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.5"/>
         <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="10.0.5"/>
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.5"/>
+        <!--#if (!IsToExcludeIdentity) -->
+        <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="7.4.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.5"/>
+        <!--#endif -->
     </ItemGroup>
 
     <ItemGroup>

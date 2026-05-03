@@ -1,8 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using Asp.Versioning;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.IdentityModel.Tokens;
+using OpenIddict.Validation.AspNetCore;
 using Serilog;
 using Todo.Application.DependencyInjection;
 using Todo.Common.Authorization;
@@ -47,8 +47,8 @@ internal static class DependencyInjectionExtensions
         /// <returns>The service collection.</returns>
         public IServiceCollection AddApiDependencies(IConfiguration configuration, IHostEnvironment hostEnvironment)
         {
-            services.AddApplication(configuration);
-            
+            services.AddApplication(configuration, hostEnvironment);
+
             services.AddHttpContextAccessor();
 
             services.AddSettings(configuration);
@@ -65,7 +65,7 @@ internal static class DependencyInjectionExtensions
 
             return services;
         }
-        
+
         private void AddSettings(IConfiguration configuration)
         {
             // Throw exception on binding error (on non-Development) (the exception handler will handle it)
@@ -74,7 +74,7 @@ internal static class DependencyInjectionExtensions
             services.Configure<InternalErrorMiddlewareSettings>(
                 configuration.GetSection(nameof(InternalErrorMiddlewareSettings)));
         }
-        
+
         private void AddProblemDetails()
         {
             services.AddProblemDetails(options =>
@@ -89,17 +89,44 @@ internal static class DependencyInjectionExtensions
                     context.ProblemDetails.Extensions.TryAdd("traceId", activity?.Id);
                 });
         }
-        
+
         private void AddAuthenticationAndAuthorization(IConfiguration configuration, IHostEnvironment hostEnvironment)
         {
-            // TODO (installed package Microsoft.AspNetCore.Authentication.JwtBearer)
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+            services.AddAuthentication(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
 
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(Policies.HealthChecksFull,
                     policyBuilder => policyBuilder.RequireRole(UserRoles.Admin).Build());
             });
+
+            services.AddOpenIddictValidation(configuration, hostEnvironment);
+        }
+
+        private void AddOpenIddictValidation(IConfiguration configuration, IHostEnvironment hostEnvironment)
+        {
+            services.AddOpenIddict()
+                .AddValidation(options =>
+                {
+                    // Note: the validation handler uses OpenID Connect discovery
+                    // to retrieve the issuer signing keys used to validate tokens.
+                    options.SetIssuer(configuration["IdentitySettings:Issuer"] ?? string.Empty);
+
+                    options.AddAudiences(configuration["IdentitySettings:Audience"] ?? string.Empty);
+
+                    if (!hostEnvironment.IsDevelopment() && !hostEnvironment.IsMigration())
+                    {
+                        // Register the encryption credentials.
+                        options.AddEncryptionKey(new SymmetricSecurityKey(
+                            Convert.FromBase64String(configuration["IdentitySettings:EncryptionKey"] ?? string.Empty)));
+                    }
+
+                    // Register the System.Net.Http integration.
+                    options.UseSystemNetHttp();
+
+                    // Register the ASP.NET Core host.
+                    options.UseAspNetCore();
+                });
         }
 
         private void AddApiVersioning()

@@ -1,8 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OpenApi;
 using Microsoft.OpenApi;
+using OpenIddict.Validation.AspNetCore;
 
 namespace Todo.Presentation.Api.OpenApi;
 
@@ -11,8 +11,10 @@ namespace Todo.Presentation.Api.OpenApi;
 /// </summary>
 /// <seealso cref="IOpenApiDocumentTransformer"/>
 [ExcludeFromCodeCoverage]
-public class SecuritySchemesDocumentTransformer : IOpenApiDocumentTransformer
+internal class SecuritySchemesDocumentTransformer : IOpenApiDocumentTransformer
 {
+    private const string BearerAuthenticationScheme = "Bearer";
+
     private readonly IAuthenticationSchemeProvider _authenticationSchemeProvider;
 
     /// <summary>
@@ -30,13 +32,14 @@ public class SecuritySchemesDocumentTransformer : IOpenApiDocumentTransformer
     {
         var authenticationSchemes = await _authenticationSchemeProvider.GetAllSchemesAsync();
 
-        if (authenticationSchemes.Any(authScheme => authScheme.Name == JwtBearerDefaults.AuthenticationScheme))
+        if (authenticationSchemes.Any(authScheme =>
+                authScheme.Name == OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme))
         {
             document.Components ??= new OpenApiComponents();
             document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
 
             document.Components.SecuritySchemes.Add(
-                JwtBearerDefaults.AuthenticationScheme,
+                BearerAuthenticationScheme,
                 new OpenApiSecurityScheme
                 {
                     Name = "Authorization",

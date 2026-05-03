@@ -60,6 +60,7 @@ After having the solution working, you can implement your own projects:
 * Rename the **Todo** projects
 * If Docker is enabled, update the `docker-compose.yml` with the new path to Dockerfile
 * Implement the new projects, for each layer (you can get base reference from the sample)
+* Set up the authentication/authorization (with the **Identity** sample, it would be updating the `SeedOpenIdTestingResourcesCommandHandler` and the settings `IdentitySettings`)
 * Update packages version
 
 # Design and Architecture
@@ -268,7 +269,7 @@ You can opt out this module just by removing it.
 For authorization, the modules are configured to use an authentication scheme based on OAuth 2.0 and OpenId Connect standards, through the library [OpenIddict](https://documentation.openiddict.com/).
 Therefore, for the endpoints requiring authorization, a Bearer token header is required. The token must be issued by the configured issuer.
 
-In the template, the **Identity API** is able to create tokens for existent users using the endpoint `/connect/token` (check the example in [Identity.Presentation.Api.http](./src/Identity/Identity.Presentation.Api/Identity.Presentation.Api.http)).
+In the template, the **Identity API** is able to create tokens for existent users using the endpoint `/connect/token` (check the example in [Identity.Presentation.Api.http](./src/Todo.Presentation.Api/Identity.Presentation.Api.http)).
 Anyway, you can use any other external issuer (compatible with OAuth 2.0 and OpenId Connect standards), you just need to configure it properly.
 
 The OAuth 2.0 flow implemented in the **Identity API** is the [Resource Owner Password Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/resource-owner-password-flow), which is not recommended for security reasons.
@@ -302,10 +303,16 @@ Regarding the repositories, they include methods to filter and sort the results,
 If you change the EF Core model (e.g., add a new property to an entity, or add a new entity), and you try to run the application, you will get an error: you have pending changes.
 You need to create a new migration.
 
-To create a migration, you need to have installed the [EF Core CLI Tool](https://learn.microsoft.com/en-us/ef/core/cli/dotnet). Then, in the root of the solution, run the following command (example for the **Todo** application):
+To create a migration, you need to have installed the [EF Core CLI Tool](https://learn.microsoft.com/en-us/ef/core/cli/dotnet). Then, in the root of the solution, run the following command:
 
 ```
-dotnet ef migrations add <MigrationName> --startup-project .\src\Todo.Presentation.Api\ --project .\src\Todo.Persistence\ -- --environment Migration
+dotnet ef migrations add <MigrationName> --startup-project .\src\Todo.Presentation.Api\ --project .\src\Todo.Persistence\ --context ApplicationDbContext -- --environment Migration
+```
+
+For the identity context (only applicable to solutions with identity), run this:
+
+```
+dotnet ef migrations add <MigrationName> --startup-project .\src\Todo.Presentation.Api\ --project .\src\Todo.Persistence\ --context IdentityDbContext --output-dir Migrations/Identity -- --environment Migration
 ```
 
 > **Note:** The `--environment Migration` parameter is used to the pending migrations not being applied, which is the default in the `Development` environment.
@@ -421,17 +428,23 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 # Final Notes
 
 * I would recommend using Enumeration classes instead of `enum`s for enumerations with logic (switch statements, etc.).
-The enumeration classes bring several benefits. You can explore a library like [PMart.Enumeration](https://github.com/p-martinho/Enumeration).
-* For an enterprise level solution with more than one API, I would suggest to check the Modular Monolith approach like [PMart.Modular.Api.Template](https://github.com/p-martinho/Modular.Api.Template)
-
+  The enumeration classes bring several benefits. You can explore a library like [PMart.Enumeration](https://github.com/p-martinho/Enumeration).
+* For an enterprise level solution with more than one API, I would suggest to check a Modular Monolith approach like [PMart.Modular.Api.Template](https://github.com/p-martinho/Modular.Api.Template).
+* Adding a UI/UX project (e.g. Blazor web app) is perfectly fine. Add a new project to the src directory and reference the API project, to have access to its DTOs.
+  But, the UI project should not use anything from **Application** and so on (respect the layered architecture).
 
 
 # TODO
 
-* Add migration
-* Rename "Todo" to "Minimal.Api.Template" (to be renamed by the template engine)
-* Add option for .NET identity (check files to exclude, like ICurrentUser?)
+* Add option for .NET identity. It is working, but is missing:
+  * Test it with and without Identity.
   * Review sections "Technologies", "Authentication" and "References"
+  * Run tests and check code coverage
+  * Remove custom OpenIddict validation in Modular and test it (in Docker and Aspire)
+* Rename "Todo" to "Minimal.Api.Template" (to be renamed by the template engine)
 * Review docs folder
 * Add things to do after creating the solution: rename projects, change DB name in appsettings and docker, rename service name in docker, refactor existing projects, update packages
-* Try to rename project
+* Test renaming project after created
+* Update packages and Aspire (`aspire update`) (in Modular as well)
+* Re-do migration (re-do migration for Modular as well) (after package update)
+* Add documentation about add migration to the template README (Modular as well)

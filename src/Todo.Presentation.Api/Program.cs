@@ -25,6 +25,10 @@ builder.Services.AddApiDependencies(builder.Configuration, builder.Environment);
 
 var app = builder.Build();
 
+#if !IsToExcludeIdentity
+await app.SeedResourcesAsync();
+
+#endif
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
