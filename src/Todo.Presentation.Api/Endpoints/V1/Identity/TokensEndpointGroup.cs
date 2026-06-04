@@ -16,18 +16,17 @@ namespace Todo.Presentation.Api.Endpoints.V1.Identity;
 /// The tokens endpoint group.
 /// </summary>
 /// <seealso cref="IEndpointGroup"/>
-internal class TokensEndpointGroup : IEndpointGroup
+internal sealed class TokensEndpointGroup : IEndpointGroup
 {
     private const string EndpointGroupName = "Tokens";
 
     private static readonly ApiVersion ApiVersion = new(1, 0);
 
     /// <inheritdoc />
-    public static void Map(WebApplication app, ApiVersionSet apiVersionSet)
+    public static void Map(IVersionedEndpointRouteBuilder apiBuilder)
     {
-        var group = app.MapGroup("")
-            .WithApiVersionSet(apiVersionSet)
-            .MapToApiVersion(ApiVersion)
+        var group = apiBuilder.MapGroup("")
+            .HasApiVersion(ApiVersion)
             .WithTags(EndpointGroupName);
 
         group.MapPost("connect/token", ExchangeAsync)
