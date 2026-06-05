@@ -32,7 +32,7 @@ grant_type=password
 &client_secret={{clientSecret}}
 &username={{username}}
 &password={{password}}
-&scope=offline_access todo_app identity_server
+&scope=offline_access todo_app
 
 ### Refresh token
 
@@ -87,7 +87,7 @@ grant_type=password
 &client_secret={{clientSecret}}
 &username={{adminUsername}}
 &password={{password}}
-&scope=offline_access todo_app identity_server
+&scope=offline_access todo_app
 
 ### Health check alive
 

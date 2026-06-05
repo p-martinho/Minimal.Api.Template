@@ -1,12 +1,16 @@
 using System.Diagnostics.CodeAnalysis;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Http.Features;
+#if IsToExcludeIdentity
 using Microsoft.IdentityModel.Tokens;
+#endif
 using OpenIddict.Validation.AspNetCore;
 using Serilog;
 using Todo.Application.DependencyInjection;
 using Todo.Common.Authorization;
+#if IsToExcludeIdentity
 using Todo.Common.Extensions;
+#endif
 using Todo.Presentation.Api.Middleware;
 using Todo.Presentation.Api.Settings;
 
@@ -57,8 +61,12 @@ internal static class DependencyInjectionExtensions
 
             services.AddExceptionHandler<CustomExceptionHandler>();
 
-            services.AddAuthenticationAndAuthorization(configuration, hostEnvironment);
+            services.AddAuthenticationAndAuthorization();
 
+#if IsToExcludeIdentity
+            services.AddOpenIddictValidation(configuration, hostEnvironment);
+
+#endif
             services.AddApiVersioning();
 
             services.AddLogging(configuration);
@@ -90,7 +98,7 @@ internal static class DependencyInjectionExtensions
                 });
         }
 
-        private void AddAuthenticationAndAuthorization(IConfiguration configuration, IHostEnvironment hostEnvironment)
+        private void AddAuthenticationAndAuthorization()
         {
             services.AddAuthentication(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
 
@@ -99,10 +107,9 @@ internal static class DependencyInjectionExtensions
                 options.AddPolicy(Policies.HealthChecksFull,
                     policyBuilder => policyBuilder.RequireRole(UserRoles.Admin).Build());
             });
-
-            services.AddOpenIddictValidation(configuration, hostEnvironment);
         }
 
+#if IsToExcludeIdentity
         private void AddOpenIddictValidation(IConfiguration configuration, IHostEnvironment hostEnvironment)
         {
             services.AddOpenIddict()
@@ -129,6 +136,7 @@ internal static class DependencyInjectionExtensions
                 });
         }
 
+#endif
         private void AddApiVersioning()
         {
             services.AddApiVersioning(options =>

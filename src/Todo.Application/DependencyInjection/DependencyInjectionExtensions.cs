@@ -146,14 +146,6 @@ public static class DependencyInjectionExtensions
                                                       string.Empty);
                     }
 
-                    var customIssuer = configuration["IdentitySettings:Issuer"];
-
-                    // Require only when we want to override it (e.g. in local docker compose).
-                    if (customIssuer is not null)
-                    {
-                        options.SetIssuer(customIssuer);
-                    }
-
                     // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
                     var aspNetOptions = options.UseAspNetCore()
                         .EnableTokenEndpointPassthrough();
@@ -164,6 +156,16 @@ public static class DependencyInjectionExtensions
                     {
                         aspNetOptions.DisableTransportSecurityRequirement();
                     }
+                })
+                .AddValidation(options =>
+                {
+                    // Import the configuration from the local OpenIddict server instance.
+                    options.UseLocalServer();
+
+                    options.AddAudiences(configuration["IdentitySettings:Audience"] ?? string.Empty);
+
+                    // Register the ASP.NET Core host.
+                    options.UseAspNetCore();
                 });
         }
 

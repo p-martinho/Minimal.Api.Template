@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using OpenIddict.Abstractions;
 using Todo.Presentation.Api.Dtos.V1.Identity.Users;
 using Todo.Presentation.Api.Dtos.V1.Identity.Users.Create;
-using Todo.Presentation.Api.IntegrationTests.Fixtures;
+using Todo.Presentation.Api.IntegrationTests.Fixtures.Identity;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 using BaseIntegrationTests = Todo.Presentation.Api.IntegrationTests.Fixtures.Identity.BaseIntegrationTests;
 
@@ -15,7 +15,7 @@ public class TokensEndpointGroupIntegrationTests : BaseIntegrationTests
     private const string TokensPath = "connect/token";
     private const string TestClientId = "test_client";
     private const string TestClientSecret = "test_secret";
-    private const string IdentityScope = "identity_server";
+    private const string IdentityScope = "todo_app";
 
     public TokensEndpointGroupIntegrationTests(IntegrationTestWebAppFactory factory) : base(factory)
     {
@@ -32,7 +32,6 @@ public class TokensEndpointGroupIntegrationTests : BaseIntegrationTests
 
         // Act
         var response = await Client.PostAsync(TokensPath, formContent, TestContext.Current.CancellationToken);
-
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -97,7 +96,8 @@ public class TokensEndpointGroupIntegrationTests : BaseIntegrationTests
 
         var response = await Client.PostAsJsonAsync(UsersPath, request, TestContext.Current.CancellationToken);
 
-        var userResponse = await response.Content.ReadFromJsonAsync<UserInfoApiDto>(TestContext.Current.CancellationToken);
+        var userResponse =
+            await response.Content.ReadFromJsonAsync<UserInfoApiDto>(TestContext.Current.CancellationToken);
 
         if (userResponse is null)
         {

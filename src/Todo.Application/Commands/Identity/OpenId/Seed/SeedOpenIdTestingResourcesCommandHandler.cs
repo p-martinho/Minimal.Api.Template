@@ -17,8 +17,6 @@ internal class SeedOpenIdTestingResourcesCommandHandler : CommandHandler<bool>,
 {
     private const string TodoScopeName = "todo_app";
     private const string TodoApiResourceName = "todo_api";
-    private const string IdentityScopeName = "identity_server";
-    private const string IdentityApiResourceName = "identity_api";
 
     private readonly IHostEnvironment _hostEnvironment;
     private readonly IOpenIddictScopeManager _scopeManager;
@@ -71,8 +69,7 @@ internal class SeedOpenIdTestingResourcesCommandHandler : CommandHandler<bool>,
     {
         return
         [
-            new OpenIddictScopeDescriptor { Name = TodoScopeName, Resources = { TodoApiResourceName } },
-            new OpenIddictScopeDescriptor { Name = IdentityScopeName, Resources = { IdentityApiResourceName } }
+            new OpenIddictScopeDescriptor { Name = TodoScopeName, Resources = { TodoApiResourceName } }
         ];
     }
 
@@ -123,8 +120,7 @@ internal class SeedOpenIdTestingResourcesCommandHandler : CommandHandler<bool>,
                     OpenIddictConstants.Permissions.Scopes.Email,
                     OpenIddictConstants.Permissions.Scopes.Profile,
                     OpenIddictConstants.Permissions.Scopes.Roles,
-                    OpenIddictConstants.Permissions.Prefixes.Scope + TodoScopeName,
-                    OpenIddictConstants.Permissions.Prefixes.Scope + IdentityScopeName
+                    OpenIddictConstants.Permissions.Prefixes.Scope + TodoScopeName
                 }
             }
         ];
