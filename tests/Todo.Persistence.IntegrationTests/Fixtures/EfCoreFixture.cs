@@ -40,8 +40,10 @@ public class EfCoreFixture : IAsyncLifetime
         services.AddScoped<ICurrentUser, TestCurrentUser>();
 
         // Adding using DI, for integration testing, to include interceptors, migration, etc.
-        services.AddEfCore<TestDbContext>(configuration);
         services.AddEfCore<ApplicationDbContext>(configuration);
+
+        // Register TestDbContext after ApplicationDbContext, because it requires DbContextOptions<ApplicationDbContext> to be already available.
+        services.AddEfCore<TestDbContext>(configuration);
 
         ServiceProvider = services.BuildServiceProvider();
     }
