@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using OpenIddict.Validation.AspNetCore;
 using Scalar.AspNetCore;
 
 namespace Todo.Presentation.Api.OpenApi;
@@ -60,8 +59,8 @@ internal static class OpenApiExtensions
             {
                 options.WithTitle(ApiInfoDetails.Title);
 
-                options.AddPreferredSecuritySchemes(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)
-                    .AddHttpAuthentication(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme,
+                options.AddPreferredSecuritySchemes(ApiInfoDetails.SecurityScheme)
+                    .AddHttpAuthentication(ApiInfoDetails.SecurityScheme,
                         securityScheme =>
                         {
                             securityScheme.Token = "your-token";

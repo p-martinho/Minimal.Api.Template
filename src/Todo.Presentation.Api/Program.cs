@@ -1,4 +1,3 @@
-using Asp.Versioning;
 using Aspire.ServiceDefaults;
 using Serilog;
 using Todo.Presentation.Api.DependencyInjection;
@@ -40,7 +39,7 @@ app.UseInternalErrorMiddleware();
 
 app.MapDefaultEndpoints();
 
-app.MapEndpoints<Program>([new ApiVersion(1, 0)]);
+app.MapEndpoints<Program>();
 
 if (app.Environment.IsDevelopment())
 {

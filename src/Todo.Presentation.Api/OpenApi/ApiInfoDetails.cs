@@ -49,4 +49,9 @@ internal static class ApiInfoDetails
         /// </summary>
         public const string Url = "https://opensource.org/licenses/MIT";
     }
+
+    /// <summary>
+    /// The security scheme used by the API.
+    /// </summary>
+    public const string SecurityScheme = "Bearer";
 }

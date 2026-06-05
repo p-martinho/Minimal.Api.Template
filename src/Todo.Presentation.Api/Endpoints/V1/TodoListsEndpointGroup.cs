@@ -39,7 +39,7 @@ internal sealed class TodoListsEndpointGroup : IEndpointGroup
         var group = apiBuilder.MapEndpointGroup(EndpointGroupName, ApiVersion, isAuthorizationRequired: true);
 
         group.MapPost(string.Empty, CreateTodoListAsync)
-            .ProducesProblem(StatusCodes.Status400BadRequest) ;
+            .ProducesProblem(StatusCodes.Status400BadRequest);
 
         group.MapGet("{id:guid}", GetTodoListByIdAsync)
             .ProducesProblem(StatusCodes.Status404NotFound);

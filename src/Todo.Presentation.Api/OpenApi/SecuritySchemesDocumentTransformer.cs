@@ -13,8 +13,6 @@ namespace Todo.Presentation.Api.OpenApi;
 [ExcludeFromCodeCoverage]
 internal class SecuritySchemesDocumentTransformer : IOpenApiDocumentTransformer
 {
-    private const string BearerAuthenticationScheme = "Bearer";
-
     private readonly IAuthenticationSchemeProvider _authenticationSchemeProvider;
 
     /// <summary>
@@ -39,12 +37,12 @@ internal class SecuritySchemesDocumentTransformer : IOpenApiDocumentTransformer
             document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
 
             document.Components.SecuritySchemes.Add(
-                BearerAuthenticationScheme,
+                ApiInfoDetails.SecurityScheme,
                 new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
                     Type = SecuritySchemeType.Http,
-                    Scheme = "bearer",
+                    Scheme = ApiInfoDetails.SecurityScheme,
                     BearerFormat = "Json Web Token",
                     In = ParameterLocation.Header
                 }

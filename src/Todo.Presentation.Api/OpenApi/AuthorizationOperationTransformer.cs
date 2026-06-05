@@ -14,8 +14,6 @@ namespace Todo.Presentation.Api.OpenApi;
 [ExcludeFromCodeCoverage]
 internal class AuthorizationOperationTransformer : IOpenApiOperationTransformer
 {
-    private const string BearerAuthenticationScheme = "Bearer";
-
     private readonly IAuthenticationSchemeProvider _authenticationSchemeProvider;
 
     /// <summary>
@@ -40,17 +38,17 @@ internal class AuthorizationOperationTransformer : IOpenApiOperationTransformer
 
         operation.Responses ??= new OpenApiResponses();
 
-        operation.Responses.TryAdd("401", new OpenApiResponse {Description = "Unauthorized"});
-        operation.Responses.TryAdd("403", new OpenApiResponse {Description = "Forbidden"});
+        operation.Responses.TryAdd("401", new OpenApiResponse { Description = "Unauthorized" });
+        operation.Responses.TryAdd("403", new OpenApiResponse { Description = "Forbidden" });
 
         var authenticationSchemes = await _authenticationSchemeProvider.GetAllSchemesAsync();
 
         if (authenticationSchemes.Any(s => s.Name == OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme))
         {
             var securitySchemeReference =
-                new OpenApiSecuritySchemeReference(BearerAuthenticationScheme, context.Document);
+                new OpenApiSecuritySchemeReference(ApiInfoDetails.SecurityScheme, context.Document);
 
-            operation.Security = new List<OpenApiSecurityRequirement> {new() {{securitySchemeReference, []}}};
+            operation.Security = new List<OpenApiSecurityRequirement> { new() { { securitySchemeReference, [] } } };
         }
     }
 }
