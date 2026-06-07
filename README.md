@@ -49,7 +49,7 @@ dotnet new min-api -n YourSolutionName --with-docker
 
 Locally, you only have to run the `Aspire.AppHost` project. It requires **Docker Desktop** running, for the database.
 
-Navigate to [https://localhost:7217/scalar]() to see the sample **Todo API** documentation page.
+Navigate to [https://localhost:7218/scalar]() to see the sample **Todo API** documentation page.
 
 You can test the sample API, using the provided examples in the `.http` file: [Todo.Presentation.Api.http](./src/Todo.Presentation.Api/Todo.Presentation.Api.http).
 
@@ -440,7 +440,7 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
   * Test it with and without Identity.
   * Review sections "Technologies", "Authentication" and "References"
   * Run tests and check code coverage
-  * Remove custom OpenIddict validation in Modular and test it (in Docker and Aspire)
+  * Test with Docker + Identity
 * Rename "Todo" to "Minimal.Api.Template" (to be renamed by the template engine)
 * Review docs folder
 * Add things to do after creating the solution: rename projects, change DB name in appsettings and docker, rename service name in docker, refactor existing projects, update packages
@@ -448,3 +448,4 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 * Update packages and Aspire (`aspire update`) (in Modular as well)
 * Re-do migration (re-do migration for Modular as well) (after package update)
 * Add documentation about add migration to the template README (Modular as well)
+* Complete TemplateDeveloperNotes.md (add it to solution items, and do the same for the Modular)
