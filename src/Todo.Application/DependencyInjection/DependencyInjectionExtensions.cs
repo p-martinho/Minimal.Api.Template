@@ -3,7 +3,7 @@ using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Quartz;
@@ -62,7 +62,7 @@ public static class DependencyInjectionExtensions
 
             services.AddQueryHandlers();
 
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
             services.AddIdentity();
 
             services.AddOpenIddictServer(configuration, hostEnvironment);
@@ -86,7 +86,7 @@ public static class DependencyInjectionExtensions
             services.AddScoped<IValidator<UpdateTodoItemDto>, UpdateTodoItemValidator>();
         }
 
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
         private void AddIdentity()
         {
             services.AddIdentityCore<AppIdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

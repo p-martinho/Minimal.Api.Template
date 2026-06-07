@@ -20,7 +20,7 @@ builder.Services.AddOpenApiDocuments();
 
 var app = builder.Build();
 
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
 await app.SeedResourcesAsync();
 
 #endif

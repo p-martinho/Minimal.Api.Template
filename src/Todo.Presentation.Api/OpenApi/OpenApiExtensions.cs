@@ -31,7 +31,7 @@ internal static class OpenApiExtensions
                 options.Document.AddOperationTransformer<ApiVersionOperationTransformer>();
                 options.Document.AddOperationTransformer<DeprecatedStatusOperationTransformer>();
                 options.Document.AddSchemaTransformer<ProblemDetailsSchemaTransformer>();
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
                 options.Document.AddOperationTransformer<TokensOperationTransformer>();
 #endif
             });

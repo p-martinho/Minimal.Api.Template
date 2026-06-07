@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
 using Microsoft.AspNetCore.Identity;
 #endif
 using Microsoft.Extensions.Configuration;
@@ -35,7 +35,7 @@ public static class DependencyInjectionExtensions
 
             services.AddRepositories();
 
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
             services.AddEfCore<IdentityDbContext>(configuration);
             services.AddOpenIddictCore();
 
@@ -50,7 +50,7 @@ public static class DependencyInjectionExtensions
             services.AddScoped<ITodoListRepository, TodoListRepository>();
         }
 
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
         private void AddOpenIddictCore()
         {
             services.AddOpenIddict()
@@ -83,14 +83,14 @@ public static class DependencyInjectionExtensions
         public IHealthChecksBuilder AddPersistenceHealthChecks()
         {
             healthChecksBuilder.AddEfCoreHealthChecks<ApplicationDbContext>();
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
             healthChecksBuilder.AddEfCoreHealthChecks<IdentityDbContext>();
 #endif
 
             return healthChecksBuilder;
         }
     }
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
 
     /// <summary>
     /// The <see cref="IdentityBuilder"/> extensions.

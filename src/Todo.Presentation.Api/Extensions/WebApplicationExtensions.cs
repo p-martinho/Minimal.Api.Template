@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
 using Todo.Application.Commands.Identity.OpenId.Seed;
 using Todo.Application.Commands.Identity.Roles.Seed;
 using Todo.Application.Commands.Models;
@@ -35,7 +35,7 @@ internal static class WebApplicationExtensions
             return app;
         }
 
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
         /// <summary>
         /// Seeds the required resources asynchronous.
         /// </summary>
@@ -63,7 +63,7 @@ internal static class WebApplicationExtensions
         return settings?.IsEnabled ?? false;
     }
 
-#if !IsToExcludeIdentity
+#if (!IsToExcludeIdentity)
     private static Task<CommandOut<bool>> SeedOpenIdResourcesAsync(AsyncServiceScope scope)
     {
         var seedHandler = scope.ServiceProvider.GetRequiredService<ISeedOpenIdTestingResourcesCommandHandler>();
