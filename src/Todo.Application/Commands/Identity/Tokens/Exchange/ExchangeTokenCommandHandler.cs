@@ -9,6 +9,7 @@ using OpenIddict.Server.AspNetCore;
 using Todo.Application.Commands.Identity.OpenId.Seed;
 using Todo.Application.Commands.Models;
 using Todo.Domain.Entities.Identity.Users;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace Todo.Application.Commands.Identity.Tokens.Exchange;
 
@@ -103,7 +104,7 @@ internal class ExchangeTokenCommandHandler : CommandHandler<OpenIddictRequest, C
         var authenticationResult = await _httpContextAccessor.HttpContext
             .AuthenticateAsync(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
 
-        return authenticationResult.Succeeded ? authenticationResult.Principal?.GetClaim(OpenIddictConstants.Claims.Subject) : null;
+        return authenticationResult.Succeeded ? authenticationResult.Principal?.GetClaim(Claims.Subject) : null;
     }
 
     private async Task<CommandOut<ClaimsPrincipal>> HandlePasswordGrantAsync(OpenIddictRequest commandIn,
@@ -135,15 +136,15 @@ internal class ExchangeTokenCommandHandler : CommandHandler<OpenIddictRequest, C
         // Create the claims-based identity that will be used by OpenIddict to generate tokens.
         var identity = new ClaimsIdentity(await _userManager.GetClaimsAsync(currentUser),
             authenticationType: TokenValidationParameters.DefaultAuthenticationType,
-            nameType: OpenIddictConstants.Claims.Name,
-            roleType: OpenIddictConstants.Claims.Role);
+            nameType: Claims.Name,
+            roleType: Claims.Role);
 
         // Add the claims that will be persisted in the tokens.
-        identity.SetClaim(OpenIddictConstants.Claims.Subject, currentUser.Id)
-            .SetClaim(OpenIddictConstants.Claims.Email, currentUser.Email)
-            .SetClaim(OpenIddictConstants.Claims.Name, currentUser.UserName)
-            .SetClaim(OpenIddictConstants.Claims.PreferredUsername, currentUser.UserName)
-            .SetClaims(OpenIddictConstants.Claims.Role, [.. await _userManager.GetRolesAsync(currentUser)]);
+        identity.SetClaim(Claims.Subject, currentUser.Id)
+            .SetClaim(Claims.Email, currentUser.Email)
+            .SetClaim(Claims.Name, currentUser.UserName)
+            .SetClaim(Claims.PreferredUsername, currentUser.UserName)
+            .SetClaims(Claims.Role, [.. await _userManager.GetRolesAsync(currentUser)]);
 
         if (scopes.Length != 0)
         {
@@ -170,14 +171,14 @@ internal class ExchangeTokenCommandHandler : CommandHandler<OpenIddictRequest, C
         {
             // Allow the "name" claim to be stored in both the access and identity tokens
             // when the "profile" scope was granted (by calling principal.SetScopes(...)).
-            OpenIddictConstants.Claims.Name or OpenIddictConstants.Claims.PreferredUsername when HasScope(claim, OpenIddictConstants.Permissions.Scopes.Profile) =>
-                [OpenIddictConstants.Destinations.AccessToken, OpenIddictConstants.Destinations.IdentityToken],
-            OpenIddictConstants.Claims.Email when HasScope(claim, OpenIddictConstants.Permissions.Scopes.Email) =>
-                [OpenIddictConstants.Destinations.AccessToken, OpenIddictConstants.Destinations.IdentityToken],
-            OpenIddictConstants.Claims.Role when HasScope(claim, OpenIddictConstants.Permissions.Scopes.Roles) =>
-                [OpenIddictConstants.Destinations.AccessToken, OpenIddictConstants.Destinations.IdentityToken],
+            Claims.Name or Claims.PreferredUsername when HasScope(claim, Scopes.Profile) =>
+                [Destinations.AccessToken, Destinations.IdentityToken],
+            Claims.Email when HasScope(claim, Scopes.Email) =>
+                [Destinations.AccessToken, Destinations.IdentityToken],
+            Claims.Role when HasScope(claim, Scopes.Roles) =>
+                [Destinations.AccessToken, Destinations.IdentityToken],
             // Otherwise, only store the claim in the access tokens.
-            _ => [OpenIddictConstants.Destinations.AccessToken]
+            _ => [Destinations.AccessToken]
         };
     }
 

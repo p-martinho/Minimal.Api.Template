@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OpenIddict.Abstractions;
 using Todo.Application.Commands.Models;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace Todo.Application.Commands.Identity.OpenId.Seed;
 
@@ -110,17 +111,17 @@ internal class SeedOpenIdTestingResourcesCommandHandler : CommandHandler<bool>,
             {
                 ClientId = "test_client",
                 ClientSecret = "test_secret",
-                ClientType = OpenIddictConstants.ClientTypes.Confidential,
+                ClientType = ClientTypes.Confidential,
                 DisplayName = "Client Test",
                 Permissions =
                 {
-                    OpenIddictConstants.Permissions.Endpoints.Token,
-                    OpenIddictConstants.Permissions.GrantTypes.Password,
-                    OpenIddictConstants.Permissions.GrantTypes.RefreshToken,
-                    OpenIddictConstants.Permissions.Scopes.Email,
-                    OpenIddictConstants.Permissions.Scopes.Profile,
-                    OpenIddictConstants.Permissions.Scopes.Roles,
-                    OpenIddictConstants.Permissions.Prefixes.Scope + TodoScopeName
+                    Permissions.Endpoints.Token,
+                    Permissions.GrantTypes.Password,
+                    Permissions.GrantTypes.RefreshToken,
+                    Permissions.Scopes.Email,
+                    Permissions.Scopes.Profile,
+                    Permissions.Scopes.Roles,
+                    Permissions.Prefixes.Scope + TodoScopeName
                 }
             }
         ];
