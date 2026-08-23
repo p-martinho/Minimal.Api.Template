@@ -436,14 +436,15 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 
 # TODO
 
-* Review sections "Technologies", "Authentication" and "References" (.NET Identity is optional)
-* Test with Docker + Identity
 * Rename "Todo" to "Minimal.Api.Template" (to be renamed by the template engine)
+* Review sections "Technologies", "Authentication" and "References" (.NET Identity is optional)
 * Review docs folder
+* Add documentation about add migration to the template README (Modular as well)
 * Add things to do after creating the solution: rename projects, change DB name in appsettings and docker, rename service name in docker, refactor existing projects, update packages, review appsettings
+* Complete TemplateDeveloperNotes.md (add it to solution items, and do the same for the Modular)
 * Test renaming project after created
 * Update packages and Aspire (`aspire update`) (in Modular as well)
 * Re-do migration (re-do migration for Modular as well) (after package update)
-* Add documentation about add migration to the template README (Modular as well)
-* Complete TemplateDeveloperNotes.md (add it to solution items, and do the same for the Modular)
 * Run tests and check code coverage (for template, no need to test solutions created with the template)
+* Test with Docker + Identity
+* Check API documentation and versioning in Scalar
