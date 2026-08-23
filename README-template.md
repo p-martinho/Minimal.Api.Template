@@ -19,7 +19,7 @@ The **Aspire Dashboard** will be launched automatically.
 
 Navigate to [https://localhost:8217/scalar]() to see the **Todo API** documentation.
 
-You can test the API, using the provided examples in the `.http` [file](./src/Todo.Presentation.Api/Todo.Presentation.Api.http).
+You can test the API, using the examples provided in the `.http` file (in the Presentation.Api folder).
 
 # Test
 

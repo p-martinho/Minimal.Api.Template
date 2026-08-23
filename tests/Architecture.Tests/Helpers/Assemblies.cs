@@ -1,8 +1,8 @@
 using System.Reflection;
-using Todo.Application.Commands;
-using Todo.Common.ApplicationContext;
-using Todo.Domain.Entities;
-using Todo.Persistence.Repositories;
+using Minimal.Api.Template.Application.Commands;
+using Minimal.Api.Template.Common.ApplicationContext;
+using Minimal.Api.Template.Domain.Entities;
+using Minimal.Api.Template.Persistence.Repositories;
 
 namespace Architecture.Tests.Helpers;
 

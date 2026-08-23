@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Todo.Common\Todo.Common.csproj"/>
+        <ProjectReference Include="..\..\Minimal.Api.Template.Common\Minimal.Api.Template.Common.csproj" />
     </ItemGroup>
 
 </Project>

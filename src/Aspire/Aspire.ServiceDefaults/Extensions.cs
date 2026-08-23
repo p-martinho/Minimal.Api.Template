@@ -6,11 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Minimal.Api.Template.Common.Authorization;
+using Minimal.Api.Template.Common.HealthChecks;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
-using Todo.Common.Authorization;
-using Todo.Common.HealthChecks;
 
 namespace Aspire.ServiceDefaults;
 

@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Minimal.Api.Template.Application\Minimal.Api.Template.Application.csproj"/>
+    </ItemGroup>
+
+</Project>

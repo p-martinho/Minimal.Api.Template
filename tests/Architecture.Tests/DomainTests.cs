@@ -1,7 +1,7 @@
 using System.Reflection;
 using Architecture.Tests.Helpers;
+using Minimal.Api.Template.Domain.Entities;
 using NetArchTest.Rules;
-using Todo.Domain.Entities;
 
 namespace Architecture.Tests;
 

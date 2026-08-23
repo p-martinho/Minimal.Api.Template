@@ -20,11 +20,11 @@
     </Folder>
     <Folder Name="/Src/">
         <File Path="src/Directory.Build.props" />
-        <Project Path="src/Todo.Application/Todo.Application.csproj" />
-        <Project Path="src/Todo.Common/Todo.Common.csproj" />
-        <Project Path="src/Todo.Domain/Todo.Domain.csproj" />
-        <Project Path="src/Todo.Persistence/Todo.Persistence.csproj" />
-        <Project Path="src/Todo.Presentation.Api/Todo.Presentation.Api.csproj" />
+        <Project Path="src/Minimal.Api.Template.Application/Minimal.Api.Template.Application.csproj" />
+        <Project Path="src/Minimal.Api.Template.Common/Minimal.Api.Template.Common.csproj" />
+        <Project Path="src/Minimal.Api.Template.Domain/Minimal.Api.Template.Domain.csproj" />
+        <Project Path="src/Minimal.Api.Template.Persistence/Minimal.Api.Template.Persistence.csproj" />
+        <Project Path="src/Minimal.Api.Template.Presentation.Api/Minimal.Api.Template.Presentation.Api.csproj" />
     </Folder>
     <!--#if (false) -->
     <Folder Name="/Template Items/">
@@ -38,10 +38,10 @@
         <File Path="tests/CodeCoverage-settings.xml" />
         <File Path="tests/Directory.Build.props" />
         <Project Path="tests/Architecture.Tests/Architecture.Tests.csproj" />
-        <Project Path="tests/Todo.Application.Tests/Todo.Application.Tests.csproj" />
-        <Project Path="tests/Todo.Common.Tests/Todo.Common.Tests.csproj" />
-        <Project Path="tests/Todo.Domain.Tests/Todo.Domain.Tests.csproj" />
-        <Project Path="tests/Todo.Persistence.IntegrationTests/Todo.Persistence.IntegrationTests.csproj" />
-        <Project Path="tests/Todo.Presentation.Api.IntegrationTests/Todo.Presentation.Api.IntegrationTests.csproj" />
+        <Project Path="tests/Minimal.Api.Template.Application.Tests/Minimal.Api.Template.Application.Tests.csproj" />
+        <Project Path="tests/Minimal.Api.Template.Common.Tests/Minimal.Api.Template.Common.Tests.csproj" />
+        <Project Path="tests/Minimal.Api.Template.Domain.Tests/Minimal.Api.Template.Domain.Tests.csproj" />
+        <Project Path="tests/Minimal.Api.Template.Persistence.IntegrationTests/Minimal.Api.Template.Persistence.IntegrationTests.csproj" />
+        <Project Path="tests/Minimal.Api.Template.Presentation.Api.IntegrationTests/Minimal.Api.Template.Presentation.Api.IntegrationTests.csproj" />
     </Folder>
 </Solution>

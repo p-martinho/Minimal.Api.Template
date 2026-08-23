@@ -5,7 +5,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Todo.Presentation.Api\Todo.Presentation.Api.csproj"/>
+        <ProjectReference Include="..\..\src\Minimal.Api.Template.Presentation.Api\Minimal.Api.Template.Presentation.Api.csproj" />
     </ItemGroup>
 
 </Project>

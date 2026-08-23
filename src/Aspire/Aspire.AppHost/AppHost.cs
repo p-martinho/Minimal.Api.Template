@@ -19,11 +19,11 @@ var sqlserver = builder.AddSqlServer("sqlserver",
     .WithLifetime(ContainerLifetime.Persistent);
 
 // Add the database to the application model so that it can be referenced by other resources.
-var todoDb = sqlserver.AddDatabase("Minimal");
+var database = sqlserver.AddDatabase("Minimal");
 
-builder.AddProject<Projects.Todo_Presentation_Api>("minimal-api")
+builder.AddProject<Projects.Minimal_Api>("minimal-api")
     .WithHttpHealthCheck(heathCheckEndpointPath)
-    .WithReference(todoDb, defaultSqlDefaultConnectionStringName)
-    .WaitFor(todoDb);
+    .WithReference(database, defaultSqlDefaultConnectionStringName)
+    .WaitFor(database);
 
 builder.Build().Run();

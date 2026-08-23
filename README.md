@@ -51,13 +51,12 @@ Locally, you only have to run the `Aspire.AppHost` project. It requires **Docker
 
 Navigate to [https://localhost:7218/scalar]() to see the sample **Todo API** documentation page.
 
-You can test the sample API, using the provided examples in the `.http` file: [Todo.Presentation.Api.http](./src/Todo.Presentation.Api/Todo.Presentation.Api.http).
+You can test the sample API, using the provided examples in the `.http` file: [Minimal.Api.Template.Presentation.Api.http](./src/Minimal.Api.Template.Presentation.Api/Minimal.Api.Template.Presentation.Api.http).
 
 ## Update
 
 After having the solution working, you can implement your own projects:
 
-* Rename the **Todo** projects
 * If Docker is enabled, update the `docker-compose.yml` with the new path to Dockerfile
 * Implement the new projects, for each layer (you can get base reference from the sample)
 * Set up the authentication/authorization (with the **Identity** sample, it would be updating the `SeedOpenIdTestingResourcesCommandHandler` and the settings `IdentitySettings`)
@@ -269,7 +268,7 @@ You can opt out this module just by removing it.
 For authorization, the modules are configured to use an authentication scheme based on OAuth 2.0 and OpenId Connect standards, through the library [OpenIddict](https://documentation.openiddict.com/).
 Therefore, for the endpoints requiring authorization, a Bearer token header is required. The token must be issued by the configured issuer.
 
-In the template, the **Identity API** is able to create tokens for existent users using the endpoint `/connect/token` (check the example in [Identity.Presentation.Api.http](./src/Todo.Presentation.Api/Identity.Presentation.Api.http)).
+In the template, the **Identity API** is able to create tokens for existent users using the endpoint `/connect/token` (check the example in [Identity.Presentation.Api.http](./src/Minimal.Api.Template.Presentation.Api/Identity.Presentation.Api.http)).
 Anyway, you can use any other external issuer (compatible with OAuth 2.0 and OpenId Connect standards), you just need to configure it properly.
 
 The OAuth 2.0 flow implemented in the **Identity API** is the [Resource Owner Password Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/resource-owner-password-flow), which is not recommended for security reasons.
@@ -306,13 +305,13 @@ You need to create a new migration.
 To create a migration, you need to have installed the [EF Core CLI Tool](https://learn.microsoft.com/en-us/ef/core/cli/dotnet). Then, in the root of the solution, run the following command:
 
 ```
-dotnet ef migrations add <MigrationName> --startup-project .\src\Todo.Presentation.Api\ --project .\src\Todo.Persistence\ --context ApplicationDbContext -- --environment Migration
+dotnet ef migrations add <MigrationName> --startup-project .\src\YourSolutionName.Presentation.Api\ --project .\src\YourSolutionName.Persistence\ --context ApplicationDbContext -- --environment Migration
 ```
 
 For the identity context (only applicable to solutions with identity), run this:
 
 ```
-dotnet ef migrations add <MigrationName> --startup-project .\src\Todo.Presentation.Api\ --project .\src\Todo.Persistence\ --context IdentityDbContext --output-dir Migrations/Identity -- --environment Migration
+dotnet ef migrations add <MigrationName> --startup-project .\src\YourSolutionName.Presentation.Api\ --project .\src\YourSolutionName.Persistence\ --context IdentityDbContext --output-dir Migrations/Identity -- --environment Migration
 ```
 
 > **Note:** The `--environment Migration` parameter is used to the pending migrations not being applied, which is the default in the `Development` environment.
@@ -320,7 +319,7 @@ dotnet ef migrations add <MigrationName> --startup-project .\src\Todo.Presentati
 If you ever need to add migrations to the `Todo.Persistence.IntegrationTests`, this would be the command:
 
 ```
-dotnet ef migrations add <MigrationName> --startup-project .\tests\Todo.Persistence.IntegrationTests\ --project .\tests\Todo.Persistence.IntegrationTests\
+dotnet ef migrations add <MigrationName> --startup-project .\tests\YourSolutionName.Persistence.IntegrationTests\ --project .\tests\YourSolutionName.Persistence.IntegrationTests\
 ```
 
 ## Logging and Telemetry
@@ -437,8 +436,12 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 # TODO
 
 * Rename "Todo" to "Minimal.Api.Template" (to be renamed by the template engine)
+  * Re-do migrations
+  * Test if the rename from template works (check the migration designer)
+  * Test with Docker
 * Review sections "Technologies", "Authentication" and "References" (.NET Identity is optional)
 * Review docs folder
+* Doc about --with-identity option
 * Add documentation about add migration to the template README (Modular as well)
 * Add things to do after creating the solution: rename projects, change DB name in appsettings and docker, rename service name in docker, refactor existing projects, update packages, review appsettings
 * Complete TemplateDeveloperNotes.md (add it to solution items, and do the same for the Modular)
@@ -446,5 +449,5 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 * Update packages and Aspire (`aspire update`) (in Modular as well)
 * Re-do migration (re-do migration for Modular as well) (after package update)
 * Run tests and check code coverage (for template, no need to test solutions created with the template)
-* Test with Docker + Identity
+* Test with Docker (with and without Identity)
 * Check API documentation and versioning in Scalar

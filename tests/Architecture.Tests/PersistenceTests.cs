@@ -1,8 +1,8 @@
 using Architecture.Tests.Helpers;
 using Microsoft.EntityFrameworkCore;
+using Minimal.Api.Template.Persistence.Configurations;
+using Minimal.Api.Template.Persistence.Repositories;
 using NetArchTest.Rules;
-using Todo.Persistence.Configurations;
-using Todo.Persistence.Repositories;
 
 namespace Architecture.Tests;
 

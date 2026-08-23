@@ -3,4 +3,4 @@ services:
     image: ${DOCKER_REGISTRY-}minimal.api
     build:
       context: .
-      dockerfile: src/Todo.Presentation.Api/Dockerfile
+      dockerfile: src/Minimal.Api.Template.Presentation.Api/Dockerfile

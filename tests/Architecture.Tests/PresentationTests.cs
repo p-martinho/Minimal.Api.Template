@@ -1,6 +1,6 @@
 using Architecture.Tests.Helpers;
+using Minimal.Api.Template.Presentation.Api.Endpoints;
 using NetArchTest.Rules;
-using Todo.Presentation.Api.Endpoints;
 
 namespace Architecture.Tests;
 

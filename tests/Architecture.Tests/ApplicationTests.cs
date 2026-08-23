@@ -1,11 +1,11 @@
 using Architecture.Tests.Extensions;
 using Architecture.Tests.Helpers;
+using Minimal.Api.Template.Application.Commands;
+using Minimal.Api.Template.Application.Commands.Models;
+using Minimal.Api.Template.Application.Common.Models;
+using Minimal.Api.Template.Application.Queries;
+using Minimal.Api.Template.Application.Queries.Models;
 using NetArchTest.Rules;
-using Todo.Application.Commands;
-using Todo.Application.Commands.Models;
-using Todo.Application.Common.Models;
-using Todo.Application.Queries;
-using Todo.Application.Queries.Models;
 
 namespace Architecture.Tests;
 
