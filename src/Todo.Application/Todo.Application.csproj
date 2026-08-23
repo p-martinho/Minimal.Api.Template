@@ -3,9 +3,9 @@
     <ItemGroup>
         <PackageReference Include="FluentValidation" Version="12.1.1"/>
         <!--#if (!IsToExcludeIdentity) -->
-        <PackageReference Include="OpenIddict.AspNetCore" Version="7.5.0"/>
-        <PackageReference Include="OpenIddict.Quartz" Version="7.5.0"/>
-        <PackageReference Include="Quartz.Extensions.Hosting" Version="3.18.1"/>
+        <PackageReference Include="OpenIddict.AspNetCore" Version="7.6.0"/>
+        <PackageReference Include="OpenIddict.Quartz" Version="7.6.0"/>
+        <PackageReference Include="Quartz.Extensions.Hosting" Version="3.19.1"/>
         <!--#endif -->
     </ItemGroup>
 

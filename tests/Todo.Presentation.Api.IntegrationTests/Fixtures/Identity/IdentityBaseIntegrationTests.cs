@@ -4,14 +4,14 @@ using Todo.Domain.Entities.Identity.Users;
 
 namespace Todo.Presentation.Api.IntegrationTests.Fixtures.Identity;
 
-public class BaseIntegrationTests : IAsyncDisposable
+public class IdentityBaseIntegrationTests : IAsyncDisposable
 {
     private readonly IServiceScope _testScope;
 
     protected readonly HttpClient Client;
     protected readonly UserManager<AppIdentityUser> UserManager;
 
-    protected BaseIntegrationTests(IntegrationTestWebAppFactory factory)
+    protected IdentityBaseIntegrationTests(IdentityIntegrationTestWebAppFactory factory)
     {
         _testScope = factory.Services.CreateScope();
 

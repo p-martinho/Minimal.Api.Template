@@ -8,11 +8,10 @@ using Todo.Presentation.Api.Dtos.V1.Identity.Users.Create;
 using Todo.Presentation.Api.Dtos.V1.Identity.Users.Update;
 using Todo.Presentation.Api.IntegrationTests.Fixtures.Identity;
 using static OpenIddict.Abstractions.OpenIddictConstants;
-using BaseIntegrationTests = Todo.Presentation.Api.IntegrationTests.Fixtures.Identity.BaseIntegrationTests;
 
 namespace Todo.Presentation.Api.IntegrationTests.Endpoints.V1.Identity;
 
-public class UsersEndpointGroupIntegrationTests : BaseIntegrationTests
+public class UsersEndpointGroupIntegrationTests : IdentityBaseIntegrationTests
 {
     private const string UsersPath = "api/users";
     private const string UsersInfoPath = $"{UsersPath}/info";
@@ -20,7 +19,7 @@ public class UsersEndpointGroupIntegrationTests : BaseIntegrationTests
     private const string TokensPath = "connect/token";
     private const string IdentityScope = "todo_app";
 
-    public UsersEndpointGroupIntegrationTests(IntegrationTestWebAppFactory factory) : base(factory)
+    public UsersEndpointGroupIntegrationTests(IdentityIntegrationTestWebAppFactory factory) : base(factory)
     {
     }
 

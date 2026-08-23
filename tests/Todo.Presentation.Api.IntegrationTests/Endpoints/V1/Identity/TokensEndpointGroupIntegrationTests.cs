@@ -5,11 +5,10 @@ using Todo.Presentation.Api.Dtos.V1.Identity.Users;
 using Todo.Presentation.Api.Dtos.V1.Identity.Users.Create;
 using Todo.Presentation.Api.IntegrationTests.Fixtures.Identity;
 using static OpenIddict.Abstractions.OpenIddictConstants;
-using BaseIntegrationTests = Todo.Presentation.Api.IntegrationTests.Fixtures.Identity.BaseIntegrationTests;
 
 namespace Todo.Presentation.Api.IntegrationTests.Endpoints.V1.Identity;
 
-public class TokensEndpointGroupIntegrationTests : BaseIntegrationTests
+public class TokensEndpointGroupIntegrationTests : IdentityBaseIntegrationTests
 {
     private const string UsersPath = "api/users";
     private const string TokensPath = "connect/token";
@@ -17,7 +16,7 @@ public class TokensEndpointGroupIntegrationTests : BaseIntegrationTests
     private const string TestClientSecret = "test_secret";
     private const string IdentityScope = "todo_app";
 
-    public TokensEndpointGroupIntegrationTests(IntegrationTestWebAppFactory factory) : base(factory)
+    public TokensEndpointGroupIntegrationTests(IdentityIntegrationTestWebAppFactory factory) : base(factory)
     {
     }
 

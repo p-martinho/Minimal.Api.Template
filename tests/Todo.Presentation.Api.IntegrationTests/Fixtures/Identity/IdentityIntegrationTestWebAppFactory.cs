@@ -5,11 +5,11 @@ using Testcontainers.MsSql;
 using Todo.Persistence.Constants;
 using Todo.Presentation.Api.IntegrationTests.Fixtures.Identity;
 
-[assembly: AssemblyFixture(typeof(IntegrationTestWebAppFactory))]
+[assembly: AssemblyFixture(typeof(IdentityIntegrationTestWebAppFactory))]
 
 namespace Todo.Presentation.Api.IntegrationTests.Fixtures.Identity;
 
-public sealed class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
+public sealed class IdentityIntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private const string MsSqlImageName = "mcr.microsoft.com/mssql/server:2022-CU24-ubuntu-22.04";
 
