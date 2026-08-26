@@ -45,6 +45,13 @@ To add support for Docker and Docker compose, add the option `--with-docker`:
 dotnet new min-api -n YourSolutionName --with-docker
 ```
 
+By default, the created solution will not include an identity provider (check the [Authentication section](#authentication-and-authorization)), expecting you to configure an external one.
+To add identity API endpoints (the API will be able to manage users and tokens), add the option `--with-identity`:
+
+```
+dotnet new min-api -n YourSolutionName --with-identity
+```
+
 ## Run
 
 Locally, you only have to run the `Aspire.AppHost` project. It requires **Docker Desktop** running, for the database.
@@ -55,10 +62,9 @@ You can test the sample API, using the provided examples in the `.http` file: [M
 
 ## Update
 
-After having the solution working, you can implement your own projects:
+After having the solution working, you can implement your own project:
 
-* If Docker is enabled, update the `docker-compose.yml` with the new path to Dockerfile
-* Implement the new projects, for each layer (you can get base reference from the sample)
+* Update the projects, for each layer (you can get base reference from the sample), according to your endpoints, application logic, domain and data storage.
 * Set up the authentication/authorization (with the **Identity** sample, it would be updating the `SeedOpenIdTestingResourcesCommandHandler` and the settings `IdentitySettings`)
 * Update packages version
 
@@ -188,8 +194,9 @@ But there are some dependencies that were decided to use because they are popula
   * This library is very used and known, but is not absolutely necessary here. The idea is to have a validation in the **Application** layer,
   and the flow of a command or query handling should include that validation. After starting by adding some manual validation for the simple sample, I gave up and added this library for that, it is so much easier to maintain and test.
 * [XUnit V3 (with MTP v2)](https://xunit.net/)
+  * XUnit is on version 3, with a lot of improvements, and supporting the modern and lightweight alternative to VSTest for running tests: the Microsoft Testing Platform (MTP), in version 2.
 * [NSubstitute](https://nsubstitute.github.io/)
-  * For mocking in unit tests, the [Moq](https://github.com/devlooped/moq) library is more popular, but [NSubstitute](https://nsubstitute.github.io/) is less verbose, easy to use (and learn) and is well-known as well.
+  * For mocking in unit tests, the [Moq](https://github.com/devlooped/moq) library is more popular, but [NSubstitute](https://nsubstitute.github.io/), in my opinion, is less verbose, easy to use (and learn) and is well-known as well.
 * [TestContainers](https://dotnet.testcontainers.org/)
   * For integration tests, it is fundamental to use a real database. This library makes it straightforward, using **Docker**.
 * [NetArchTest.eNhancedEdition](https://github.com/NeVeSpl/NetArchTest.eNhancedEdition)
@@ -222,13 +229,14 @@ the solution uses a custom way to register them by endpoint group. There are ple
 But again, the idea was to keep the external dependencies at the minimum (without having to invent the wheel, of course).
 
 Check the **Todo API** sample, to see how the endpoints are registered, by implementing the `IEndpointGroup`
-(it will be registered automatically by `SharedCore.Presentation.Extensions.EndpointExtensions.MapEndpoints<TProgram>()`).
+(it will be registered automatically by `Presentation.Api.Extensions.EndpointExtensions.MapEndpoints<TProgram>()`).
 
 The Presentation layer uses its owns DTOs (the `ApiDtos`), instead of returning the applicational DTOs. Although it introduces more code and complexity (and more mapping),
 the idea is making the API contracts stable (I would recommend having different API DTOs for each API version as well).
 This way, we make sure that any change in the applicational DTO will not cause a breaking change in the API.
 
-The `ResultType` from the `CommandOut<>` or `QueryOut<>` sets the API response code.
+The `ResultType` from the `CommandOut<>` or `QueryOut<>` sets the API response code. On success, the endpoint produces a `Status200OK` or `Status201Created` response (depends on the type of operation).
+On a non-success result, a `ProblemDetails` response is produced, and the response code and details are mapped from the `OutputResult` (using the `OutputResultMappingExtensions.ToProblemDetails()`).
 
 ## API Versioning
 
@@ -349,6 +357,27 @@ The `docker-compose.override.yml` will run the following services: the API, The 
 
 To access the Aspire Dashboard from Docker, check the logs of the container, there will be the link to the Dashboard with the login token.
 
+## HTTPS
+
+The API enforces HTTPS, using the HTTPS redirection middleware (`UseHttpsRedirection()`).
+
+For HTTPS in local development, you need to trust the .NET development certificate (just once):
+
+```
+dotnet dev-certs https --trust
+```
+
+Anyway, enforced HTTPS is problematic when running locally with Docker. The certificate must be available in the Docker container.
+For that (**note: only required to run the API in Docker**), create a certificate with the same name as the project and set its password in the user secrets:
+
+```
+dotnet dev-certs https -ep %appdata%\ASP.NET\Https\YourSolutionName.Presentation.Api.pfx -p <PASSWORD>
+dotnet dev-certs https --trust
+dotnet user-secrets -p ./src/YourSolutionName.Presentation.Api/YourSolutionName.Presentation.Api.csproj set "Kestrel:Certificates:Development:Password" "<PASSWORD>"
+```
+
+The `docker-compose.override.yml` has the required volume mappings to share the certificate and user secrets with the container.
+
 ## Health Checks
 
 The application has default health checks in the endpoints `/health` and `/alive`. For instance, it includes the health check for the EF Core DB context.
@@ -435,10 +464,6 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 
 # TODO
 
-* Rename "Todo" to "Minimal.Api.Template" (to be renamed by the template engine)
-  * Re-do migrations
-  * Test if the rename from template works (check the migration designer)
-  * Test with Docker
 * Review sections "Technologies", "Authentication" and "References" (.NET Identity is optional)
 * Review docs folder
 * Doc about --with-identity option
