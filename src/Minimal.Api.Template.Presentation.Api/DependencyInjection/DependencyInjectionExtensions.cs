@@ -74,7 +74,7 @@ internal static class DependencyInjectionExtensions
 
         private void AddSettings(IConfiguration configuration)
         {
-            // Throw exception on binding error (on non-Development) (the exception handler will handle it)
+            // Throw exception on binding error always (by default, it throws on Development, in non-Development it returns an emtpy 400 response), the exception handler will handle it)
             services.Configure<RouteHandlerOptions>(options => { options.ThrowOnBadRequest = true; });
 
             services.Configure<InternalErrorMiddlewareSettings>(

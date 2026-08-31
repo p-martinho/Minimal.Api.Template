@@ -179,7 +179,7 @@ But there are some dependencies that were decided to use because they are popula
 * [Docker and Docker compose support](https://docs.docker.com/)
   * For the ones that prefer **Docker**, the template has the option to include the Docker and Docker compose files, necessary to get everything running in Docker containers.
 * [ASP.NET Core Identity](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity?tabs=visual-studio)
-  * The solution includes a sample API to create, store, and authenticate users.
+  * If the option `--with-identity` was used, the API will include sample endpoints to create, store, and authenticate users.
 * [OpenIddict](https://documentation.openiddict.com/)
   * The solution contains the authentication and authorization configured out-of-the-box, as explained in the [auth section](#authentication-and-authorization).
     The decision was to use known standards (OAuth 2.0 and OpenId Connect), using an open source library.
@@ -466,7 +466,6 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 
 # TODO
 
-* Review sections "Technologies", "Authentication" and "References" (.NET Identity is optional)
 * Check if this still applies: In case of a binding error (for instance, a request with the wrong format), a `BadHttpRequestException` is thrown by the framework (currently, even if the new model validation for minimal APIs is enabled). The `CustomExceptionHandler` will return a problem details response, with a `400` status code, in this case.
 * Review docs folder
 * Doc about --with-identity option
