@@ -46,7 +46,7 @@ dotnet new min-api -n YourSolutionName --with-docker
 ```
 
 By default, the created solution will not include an identity provider (check the [Authentication section](#authentication-and-authorization)), expecting you to configure an external one.
-To add identity API endpoints (the API will be able to manage users and tokens), add the option `--with-identity`:
+To add identity API endpoints and storage (the API will be able to manage users and tokens), add the option `--with-identity`:
 
 ```
 dotnet new min-api -n YourSolutionName --with-identity
@@ -66,7 +66,8 @@ After having the solution working, you can implement your own project:
 
 * Update the projects, for each layer (you can get base reference from the sample), according to your endpoints, application logic, domain and data storage.
 * Set up the authentication/authorization (with the **Identity** sample, it would be updating the `SeedOpenIdTestingResourcesCommandHandler` and the settings `IdentitySettings`)
-* Update packages version
+* Review the settings in `appsettings.json`
+* Update NuGet packages
 
 # Design and Architecture
 
@@ -466,13 +467,7 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 
 # TODO
 
-* Check if this still applies: In case of a binding error (for instance, a request with the wrong format), a `BadHttpRequestException` is thrown by the framework (currently, even if the new model validation for minimal APIs is enabled). The `CustomExceptionHandler` will return a problem details response, with a `400` status code, in this case.
 * Review docs folder
-* Doc about --with-identity option
-* Add documentation about add migration to the template README (Modular as well)
-* Add things to do after creating the solution: rename projects, change DB name in appsettings and docker, rename service name in docker, refactor existing projects, update packages, review appsettings
-* Complete TemplateDeveloperNotes.md (add it to solution items, and do the same for the Modular)
-* Test renaming project after created
 * Update packages and Aspire (`aspire update`) (in Modular as well)
 * Re-do migration (re-do migration for Modular as well) (after package update)
 * Run tests and check code coverage (for template, no need to test solutions created with the template)
