@@ -467,7 +467,6 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 
 # TODO
 
-* Review docs folder
 * Update packages and Aspire (`aspire update`) (in Modular as well)
 * Re-do migration (re-do migration for Modular as well) (after package update)
 * Run tests and check code coverage (for template, no need to test solutions created with the template)

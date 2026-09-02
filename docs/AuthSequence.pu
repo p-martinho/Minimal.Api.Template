@@ -12,49 +12,46 @@ skinparam SequenceBoxBackgroundColor #White
 
 actor User
 participant "Client App" as ClientApp
-participant "Identity API" as IdentityApi
-participant "TODO API" as TodoApi
+participant "API" as Api
 
 User -> ClientApp ++ : Create User
 
-    ClientApp -> IdentityApi ++ : POST /api/users
-    IdentityApi --> ClientApp -- : UserApiDto
+    ClientApp -> Api ++ : POST /api/users
+    Api --> ClientApp -- : UserApiDto
 
 ClientApp -> User --
 
 User -> ClientApp ++ : Login (username+password)
     
-    ClientApp -> IdentityApi ++ : POST /connect/token
+    ClientApp -> Api ++ : POST /connect/token
 
-        IdentityApi -> IdentityApi ++ : Validate username+password
-        IdentityApi --
+        Api -> Api ++ : Validate username+password
+        Api --
 
-    IdentityApi --> ClientApp -- : Access token
+    Api --> ClientApp -- : Access token
 
 ClientApp -> User --
 
 User -> ClientApp ++ : Get User Info
 
-    ClientApp -> IdentityApi ++ : GET /api/users/info (access token in header)
+    ClientApp -> Api ++ : GET /api/users/info (access token in header)
     
-        IdentityApi -> IdentityApi ++ : Validate access token
-        IdentityApi --
+        Api -> Api ++ : Validate access token
+        Api --
     
-    IdentityApi --> ClientApp -- : UserApiDto
+    Api --> ClientApp -- : UserApiDto
 
 ClientApp -> User --
 
 User -> ClientApp ++ : Create TODO List
 
-    ClientApp -> TodoApi ++ : POST /api/todoLists (access token in header)
+    ClientApp -> Api ++ : POST /api/todoLists (access token in header)
 
-        TodoApi -> IdentityApi ++ : Validate access token
-        IdentityApi --> TodoApi --
+        Api -> Api ++ : Validate access token
+        Api --
 
-    TodoApi --> ClientApp -- : TodoListApiDto
+    Api --> ClientApp -- : TodoListApiDto
 
 ClientApp -> User --
-
-
 
 @enduml
