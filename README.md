@@ -316,13 +316,13 @@ You need to create a new migration.
 To create a migration, you need to have installed the [EF Core CLI Tool](https://learn.microsoft.com/en-us/ef/core/cli/dotnet). Then, in the root of the solution, run the following command:
 
 ```
-dotnet ef migrations add <MigrationName> --startup-project .\src\YourSolutionName.Presentation.Api\ --project .\src\YourSolutionName.Persistence\ --context ApplicationDbContext -- --environment Migration
+dotnet ef migrations add <MigrationName> --startup-project ./src/YourSolutionName.Presentation.Api/ --project ./src/YourSolutionName.Persistence/ --context ApplicationDbContext -- --environment Migration
 ```
 
 For the **Identity** context (only applicable to solutions with identity option), run this:
 
 ```
-dotnet ef migrations add <MigrationName> --startup-project .\src\YourSolutionName.Presentation.Api\ --project .\src\YourSolutionName.Persistence\ --context IdentityDbContext --output-dir Migrations/Identity -- --environment Migration
+dotnet ef migrations add <MigrationName> --startup-project ./src/YourSolutionName.Presentation.Api/ --project ./src/YourSolutionName.Persistence/ --context IdentityDbContext --output-dir Migrations/Identity -- --environment Migration
 ```
 
 > **Note:** The `--environment Migration` parameter is used to the pending migrations not being applied, which is the default in the `Development` environment.
@@ -330,7 +330,7 @@ dotnet ef migrations add <MigrationName> --startup-project .\src\YourSolutionNam
 If you ever need to add migrations to the `Todo.Persistence.IntegrationTests`, this would be the command:
 
 ```
-dotnet ef migrations add <MigrationName> --startup-project .\tests\YourSolutionName.Persistence.IntegrationTests\ --project .\tests\YourSolutionName.Persistence.IntegrationTests\
+dotnet ef migrations add <MigrationName> --startup-project ./tests/YourSolutionName.Persistence.IntegrationTests/ --project ./tests/YourSolutionName.Persistence.IntegrationTests/
 ```
 
 ## Logging and Telemetry
@@ -374,7 +374,7 @@ Anyway, enforced HTTPS is problematic when running locally with Docker. The cert
 For that (**note: only required to run the API in Docker**), create a certificate with the same name as the project and set its password in the user secrets:
 
 ```
-dotnet dev-certs https -ep %appdata%\ASP.NET\Https\YourSolutionName.Presentation.Api.pfx -p <PASSWORD>
+dotnet dev-certs https -ep %appdata%/ASP.NET/Https/YourSolutionName.Presentation.Api.pfx -p <PASSWORD>
 dotnet dev-certs https --trust
 dotnet user-secrets -p ./src/YourSolutionName.Presentation.Api/YourSolutionName.Presentation.Api.csproj set "Kestrel:Certificates:Development:Password" "<PASSWORD>"
 ```
@@ -420,7 +420,7 @@ To assess the code coverage, and if your IDE does not include a tool for it, fol
     ReportGenerator -reports:**/coverage.cobertura.xml -targetdir:CoverageReport
     ```
 
-4. Open the HTML file `CoverageReport\index.html` to see the results.
+4. Open the HTML file `CoverageReport/index.html` to see the results.
 
 ## Mapping
 
@@ -467,8 +467,6 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 
 # TODO
 
-* Update packages and Aspire (`aspire update`) (in Modular as well)
-* Re-do migration (re-do migration for Modular as well) (after package update)
 * Run tests and check code coverage (for template, no need to test solutions created with the template)
 * Test with Docker (with and without Identity)
 * Check API documentation and versioning in Scalar

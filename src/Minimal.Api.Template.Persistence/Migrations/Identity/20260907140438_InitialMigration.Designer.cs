@@ -12,7 +12,7 @@ using Minimal.Api.Template.Persistence;
 namespace Minimal.Api.Template.Persistence.Migrations.Identity
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20260823175107_InitialMigration")]
+    [Migration("20260907140438_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />

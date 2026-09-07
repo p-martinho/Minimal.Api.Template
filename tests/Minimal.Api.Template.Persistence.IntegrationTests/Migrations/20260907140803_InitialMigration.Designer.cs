@@ -12,7 +12,7 @@ using Minimal.Api.Template.Persistence.IntegrationTests.Fixtures.TestServices;
 namespace Minimal.Api.Template.Persistence.IntegrationTests.Migrations
 {
     [DbContext(typeof(TestDbContext))]
-    [Migration("20260823175257_InitialMigration")]
+    [Migration("20260907140803_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />

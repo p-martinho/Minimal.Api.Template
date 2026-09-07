@@ -51,7 +51,7 @@ To assess the code coverage, and if your IDE does not include a tool for it, fol
     ReportGenerator -reports:**/coverage.cobertura.xml -targetdir:CoverageReport
     ```
 
-4. Open the HTML file `CoverageReport\index.html` to see the results.
+4. Open the HTML file `CoverageReport/index.html` to see the results.
 
 # EF Core Migrations
 
@@ -61,13 +61,13 @@ You need to create a new migration.
 To create a migration, you need to have installed the [EF Core CLI Tool](https://learn.microsoft.com/en-us/ef/core/cli/dotnet). Then, in the root of the solution, run the following command:
 
 ```
-dotnet ef migrations add <MigrationName> --startup-project .\src\YourSolutionName.Presentation.Api\ --project .\src\YourSolutionName.Persistence\ --context ApplicationDbContext -- --environment Migration
+dotnet ef migrations add <MigrationName> --startup-project ./src/YourSolutionName.Presentation.Api/ --project ./src/YourSolutionName.Persistence/ --context ApplicationDbContext -- --environment Migration
 ```
 
 For the identity context (only applicable to solutions with identity), run this:
 
 ```
-dotnet ef migrations add <MigrationName> --startup-project .\src\YourSolutionName.Presentation.Api\ --project .\src\YourSolutionName.Persistence\ --context IdentityDbContext --output-dir Migrations/Identity -- --environment Migration
+dotnet ef migrations add <MigrationName> --startup-project ./src/YourSolutionName.Presentation.Api/ --project ./src/YourSolutionName.Persistence/ --context IdentityDbContext --output-dir Migrations/Identity -- --environment Migration
 ```
 
 > **Note:** The `--environment Migration` parameter is used to the pending migrations not being applied, which is the default in the `Development` environment.
@@ -75,5 +75,5 @@ dotnet ef migrations add <MigrationName> --startup-project .\src\YourSolutionNam
 If you ever need to add migrations to the `Todo.Persistence.IntegrationTests`, this would be the command:
 
 ```
-dotnet ef migrations add <MigrationName> --startup-project .\tests\YourSolutionName.Persistence.IntegrationTests\ --project .\tests\YourSolutionName.Persistence.IntegrationTests\
+dotnet ef migrations add <MigrationName> --startup-project ./tests/YourSolutionName.Persistence.IntegrationTests/ --project ./tests/YourSolutionName.Persistence.IntegrationTests/
 ```
