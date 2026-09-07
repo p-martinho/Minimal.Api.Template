@@ -38,6 +38,20 @@ The best way to check the output is installing the template directly from its fo
     - Check the command to uninstall it: `dotnet new uninstall`
     - Run the uninstallation command (instead of the name of the template, it uses the template local full path)
 
+# Re-create Initial Migrations
+
+To re-do the initial migrations:
+
+- Remove the folders 'Migrations' from projects `Minimal.Api.Template.Pesistence` and `Minimal.Api.Template.Persistence.IntegrationTests`
+- Temporally remove `Minimal.Api.Template.csproj` (its existence along with the solution file will cause an error in the migration command)
+- Create new migrations, using the commands:
+  ```
+  dotnet ef migrations add InitialMigration --startup-project ./src/Minimal.Api.Template.Presentation.Api/ --project ./src/Minimal.Api.Template.Persistence/ --context ApplicationDbContext -- --environment Migration
+  dotnet ef migrations add InitialMigration --startup-project ./src/Minimal.Api.Template.Presentation.Api/ --project ./src/Minimal.Api.Template.Persistence/ --context IdentityDbContext --output-dir Migrations/Identity -- --environment Migration
+  dotnet ef migrations add InitialMigration --startup-project ./tests/Minimal.Api.Template.Persistence.IntegrationTests/ --project ./tests/Minimal.Api.Template.Persistence.IntegrationTests/
+  ```
+- Revert the removal of `Minimal.Api.Template.csproj`
+
 # References
 
 - [.NET templates for authors](https://learn.microsoft.com/en-us/dotnet/core/tools/templates)
