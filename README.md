@@ -469,6 +469,5 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 
 # TODO
 
-* Run tests and check code coverage (for template, no need to test solutions created with the template)
 * Test with Docker (with and without Identity)
 * Check API documentation and versioning in Scalar
