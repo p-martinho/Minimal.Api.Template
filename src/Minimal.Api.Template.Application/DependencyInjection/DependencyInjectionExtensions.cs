@@ -16,6 +16,7 @@ using Minimal.Api.Template.Application.Dtos.TodoLists.Update;
 using Minimal.Api.Template.Application.Queries.TodoLists.Get;
 using Minimal.Api.Template.Application.Queries.TodoLists.GetById;
 using Minimal.Api.Template.Persistence.DependencyInjection;
+using Quartz;
 #if (!IsToExcludeIdentity)
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -29,7 +30,6 @@ using Minimal.Api.Template.Application.Dtos.Identity.Users.Update;
 using Minimal.Api.Template.Application.Queries.Identity.Users.GetById;
 using Minimal.Api.Template.Common.Extensions;
 using Minimal.Api.Template.Domain.Entities.Identity.Users;
-using Quartz;
 #endif
 
 namespace Minimal.Api.Template.Application.DependencyInjection;
