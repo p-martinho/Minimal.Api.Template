@@ -469,5 +469,5 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 
 # TODO
 
-* Test with Docker (with and without Identity)
 * Check API documentation and versioning in Scalar
+* Review README in GitHub

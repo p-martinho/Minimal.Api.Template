@@ -33,7 +33,7 @@ The best way to check the output is installing the template directly from its fo
 
 - Uninstall the template, if installed normally (with package): `dotnet new uninstall PMart.Minimal.Api.Template`
 - Install/reinstall from local folder (in the root of the solution): `dotnet new install .\ --force`
-- Test it: `dotnet new mod-api -n YourSolutionName`
+- Test it: `dotnet new min-api -n YourSolutionName`
 - In the end, uninstall it:
     - Check the command to uninstall it: `dotnet new uninstall`
     - Run the uninstallation command (instead of the name of the template, it uses the template local full path)
