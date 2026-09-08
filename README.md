@@ -135,7 +135,7 @@ No other layer has the knowledge of how persistence happens: what tool is used (
 what type of database, etc.
 The repositories include the permissions to data access and the logic to include in the queries the root aggregate with all its related entities.
 
-**Note**: These repositories are not ORM agnostic, they were made to work with [EF Core](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-implementation-entity-framework-core).
+> **Note:** These repositories are not ORM agnostic, they were made to work with [EF Core](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-implementation-entity-framework-core).
 
 ### Common
 
@@ -172,7 +172,7 @@ But there are some dependencies that were decided to use because they are popula
 
 * [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
 * [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
-* [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview)
+* [Aspire](https://aspire.dev/get-started/what-is-aspire/)
   * The solution includes **Aspire**, to orchestrate the several services (API, database, etc.). It is so easy running and connecting everything for local development environments.
     It includes the [Aspire Dashboard](https://aspire.dev/dashboard/overview/), which helps a lot to visualize traces, structured logs, and metrics.
 * [OpenTelemetry](https://opentelemetry.io/docs/languages/dotnet/)
@@ -197,7 +197,7 @@ But there are some dependencies that were decided to use because they are popula
 * [XUnit V3 (with MTP v2)](https://xunit.net/)
   * XUnit is on version 3, with a lot of improvements, and supporting the modern and lightweight alternative to VSTest for running tests: the Microsoft Testing Platform (MTP), in version 2.
 * [NSubstitute](https://nsubstitute.github.io/)
-  * For mocking in unit tests, the [Moq](https://github.com/devlooped/moq) library is more popular, but [NSubstitute](https://nsubstitute.github.io/), in my opinion, is less verbose, easy to use (and learn) and is well-known as well.
+  * For mocking in unit tests, the [Moq](https://github.com/devlooped/moq) library is more popular, but **NSubstitute**, in my opinion, is less verbose, easy to use (and learn) and is well-known as well.
 * [TestContainers](https://dotnet.testcontainers.org/)
   * For integration tests, it is fundamental to use a real database. This library makes it straightforward, using **Docker**.
 * [NetArchTest.eNhancedEdition](https://github.com/NeVeSpl/NetArchTest.eNhancedEdition)
@@ -244,7 +244,7 @@ On a non-success result, a `ProblemDetails` response is produced (check the [Err
 The solution supports API versioning by defining the existent versions (including the deprecated ones) and assigning the endpoint groups to a version.
 For each API version, it will be created one **OpenApi** document.
 
-Check the way the version is assigned in the `TodoListsEndpointGroup` in the **Todo API**.
+Check the way the version is assigned in the `TodoListsEndpointGroup`.
 For setting specific versions as deprecated, provide them in `app.MapEndpoints<Program>()` call, in `Program.cs`.
 
 ## Error Handling
@@ -343,7 +343,7 @@ The `docker-compose.override.yml` file (if added) includes the **Aspire Dashboar
 
 ## Aspire
 
-The solution has support for [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview). Locally, you only have to run the `Aspire.AppHost` project.
+The solution has support for [Aspire](https://aspire.dev/get-started/what-is-aspire/). Locally, you only have to run the `Aspire.AppHost` project.
 It will automatically instantiate a Docker container for the SQL Server (requires **Docker Desktop** running), add the database, waits for the database is up, and then run the API.
 The **Aspire Dashboard** is launched.
 
@@ -465,9 +465,3 @@ The template includes a `.editorconfig` file, to help maintain consistent coding
 * For an enterprise level solution with more than one API, I would suggest to check a Modular Monolith approach like [PMart.Modular.Api.Template](https://github.com/p-martinho/Modular.Api.Template).
 * Adding a UI/UX project (e.g. Blazor web app) is perfectly fine. Add a new project to the src directory and reference the API project, to have access to its DTOs.
   But, the UI project should not use anything from **Application** and so on (respect the layered architecture).
-
-
-# TODO
-
-* Check API documentation and versioning in Scalar
-* Review README in GitHub
