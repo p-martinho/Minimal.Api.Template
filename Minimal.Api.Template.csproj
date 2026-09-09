@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <PackageId>PMart.Minimal.Api.Template</PackageId>
+        <Title>$(PackageId)</Title>
+        <Authors>Paulo Martinho</Authors>
+        <Company>PMart</Company>
+        <RepositoryUrl>https://github.com/p-martinho/Minimal.Api.Template</RepositoryUrl>
+        <Description>A solution template for creating a simple and clean ASP.NET Core API.</Description>
+        <PackageTags>minimal;api;template</PackageTags>
+        <PackageProjectUrl>https://github.com/p-martinho/Minimal.Api.Template</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+
+        <PackageType>Template</PackageType>
+        <IncludeContentInPack>true</IncludeContentInPack>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <ContentTargetFolders>content</ContentTargetFolders>
+        <NoWarn>$(NoWarn);NU5128</NoWarn>
+        <NoDefaultExcludes>true</NoDefaultExcludes>
+
+        <PackageVersion>1.0.0</PackageVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <LocalizeTemplates>false</LocalizeTemplates>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.TemplateEngine.Tasks" Version="*" PrivateAssets="all"
+                          IsImplicitlyDefined="true" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include=".\**\*"
+                 Exclude="**\bin\**;**\obj\**;**\.vs\**;**\.vscode\**;.\.idea\**;.\.git\**;.\.github\**;**\*.filelist;**\*.user;**\*.lock.json;**\log\**;**\logs\**;sqldata\**;CoverageReport\**;TestResults\**" />
+        <Compile Remove="**\*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="" />
+        <None Include="icon.png" Pack="true" PackagePath="" />
+    </ItemGroup>
+
+</Project>

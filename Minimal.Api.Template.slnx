@@ -1,0 +1,47 @@
+<Solution>
+    <Folder Name="/Aspire/">
+        <Project Path="src/Aspire/Aspire.AppHost/Aspire.AppHost.csproj" />
+        <Project Path="src/Aspire/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+    </Folder>
+    <Folder Name="/Documentation/">
+        <File Path="LICENSE" />
+        <File Path="README.md" />
+    </Folder>
+    <Folder Name="/Solution Items/">
+        <File Path=".editorconfig" />
+        <File Path=".gitignore" />
+        <File Path="Directory.Build.props" />
+        <File Path="global.json" />
+        <!--#if (IsToAddDocker) -->
+        <Project Path="docker-compose.dcproj">
+            <Build />
+        </Project>
+        <!--#endif -->
+    </Folder>
+    <Folder Name="/Src/">
+        <File Path="src/Directory.Build.props" />
+        <Project Path="src/Minimal.Api.Template.Application/Minimal.Api.Template.Application.csproj" />
+        <Project Path="src/Minimal.Api.Template.Common/Minimal.Api.Template.Common.csproj" />
+        <Project Path="src/Minimal.Api.Template.Domain/Minimal.Api.Template.Domain.csproj" />
+        <Project Path="src/Minimal.Api.Template.Persistence/Minimal.Api.Template.Persistence.csproj" />
+        <Project Path="src/Minimal.Api.Template.Presentation.Api/Minimal.Api.Template.Presentation.Api.csproj" />
+    </Folder>
+    <!--#if (false) -->
+    <Folder Name="/Template Items/">
+        <File Path=".template.config/template.json" />
+        <File Path="docs/TemplateDeveloperNotes.md" />
+        <File Path="Minimal.Api.Template.csproj" />
+        <File Path="README-template.md" />
+    </Folder>
+    <!--#endif -->
+    <Folder Name="/Tests/">
+        <File Path="tests/CodeCoverage-settings.xml" />
+        <File Path="tests/Directory.Build.props" />
+        <Project Path="tests/Architecture.Tests/Architecture.Tests.csproj" />
+        <Project Path="tests/Minimal.Api.Template.Application.Tests/Minimal.Api.Template.Application.Tests.csproj" />
+        <Project Path="tests/Minimal.Api.Template.Common.Tests/Minimal.Api.Template.Common.Tests.csproj" />
+        <Project Path="tests/Minimal.Api.Template.Domain.Tests/Minimal.Api.Template.Domain.Tests.csproj" />
+        <Project Path="tests/Minimal.Api.Template.Persistence.IntegrationTests/Minimal.Api.Template.Persistence.IntegrationTests.csproj" />
+        <Project Path="tests/Minimal.Api.Template.Presentation.Api.IntegrationTests/Minimal.Api.Template.Presentation.Api.IntegrationTests.csproj" />
+    </Folder>
+</Solution>

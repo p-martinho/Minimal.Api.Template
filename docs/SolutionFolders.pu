@@ -1,0 +1,26 @@
+@startfiles
+
+/Aspire/Aspire.AppHost/
+/Aspire/Aspire.ServiceDefaults/
+/Src/SolutionName.Presentation.Api/
+/Src/SolutionName.Application/
+/Src/SolutionName.Persistence/
+/Src/SolutionName.Domain/
+/Src/SolutionName.Common/
+/Src/Directory.Build.props
+/Tests/SolutionName.Presentation.Api.IntegrationTests/
+/Tests/SolutionName.Application.Tests/
+/Tests/SolutionName.Persistence.IntegrationTests/
+/Tests/SolutionName.Domain.Tests/
+/Tests/SolutionName.Common.Tests/
+/Tests/Architecture.Tests/
+/Tests/Directory.Build.props
+/Tests/CodeCoverage-settings.xml
+/Solution Items/.editorconfig
+/Solution Items/.gitignore
+/Solution Items/Directory.Build.props
+/Solution Items/global.json
+/Documentation/LICENSE
+/Documentation/README.md
+
+@endfiles

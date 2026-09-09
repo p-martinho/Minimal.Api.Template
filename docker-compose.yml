@@ -1,0 +1,6 @@
+services:
+  minimal.api:
+    image: ${DOCKER_REGISTRY-}minimal.api
+    build:
+      context: .
+      dockerfile: src/Minimal.Api.Template.Presentation.Api/Dockerfile
